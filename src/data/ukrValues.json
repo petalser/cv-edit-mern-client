@@ -1,0 +1,159 @@
+{
+  "name": {
+    "description": "Your name",
+    "value": "Олександр Петричук"
+  },
+  "role": {
+    "description": "Role you're looking for",
+    "value": "Фронт-енд розробник"
+  },
+  "education": {
+    "description": "Education (university, college, courses)",
+    "value": "ХНТУСГ"
+  },
+  "contactLink_1": {
+    "description": "Contact link #1 (email?)",
+    "value": "petrichuck.a@gmail.com"
+  },
+  "contactLink_2": {
+    "description": "Contact link #2",
+    "value": "github.com/petalser"
+  },
+  "contactLink_3": {
+    "description": "Contact link #3",
+    "value": "linkedin.com/in/oleksandr-petrychuk"
+  },
+  "summaryTitle": {
+    "description": "Title for \"summary\" section",
+    "value": "Про мене"
+  },
+  "summaryText": {
+    "description": "Actual \"summary\"",
+    "value": "Цікавивлюся програмуванням з 2015, у 2021му вирішив зануритися глибше. Наразі поєдную фріланс із фул-тайм роботою, що не пов'язана з IT. Шукаю позицію фронтенд-джуна або фуллстек-трейні"
+  },
+  "stackTitle": {
+    "description": "Title for \"my stack\" section",
+    "value": "Мій Арсенал"
+  },
+  "stackList": {
+    "placeholders": [
+      "Title (programming language, field of knowledge",
+      "Details (frameworks, libraries, etc"
+    ],
+    "values": [
+      ["HTML5/CSS3", "Bootstrap, Tailwind, SASS, LESS, CSS modules"],
+      [
+        "Javascript/Typescript",
+        "ES6+, React.js, React Styled comp-s, React-redux (+toolkit), Node.js (Express.js, MongoDB)"
+      ],
+      ["Python", "Django, tkinter, pyQT"]
+    ]
+  },
+  "langTitle": {
+    "description": "Title for \"my languages\" section",
+    "value": "Мої Мови"
+  },
+  "langList": {
+    "placeholders": ["Language", "Level, certificate"],
+    "values": [
+      ["Англійська", "C1"],
+      ["Українська", "C2"],
+      ["Російська", "C2"],
+      ["Польська", "B1"]
+    ]
+  },
+  "projectsSectionTitle": {
+    "description": "Title for \"my projects\" section",
+    "value": "Мої Проєкти"
+  },
+  "projectsSectionSummary": {
+    "description": "Summary for \"my projects\" section",
+    "value": "Протягом останніх років я приймав участь у різних проектах, ось кілька зроблених мною особисто:"
+  },
+  "project_1": {
+    "title": {
+      "description": "Project name",
+      "value": "DataStash"
+    },
+    "subtitle": {
+      "description": "Few words about that project",
+      "value": "Побудовано з React.js (TS) та GCP (Google Auth та Firestore). Приймає кілька інпутів і &#34;пароль&#34;, шифрує та зберігає у БД. Зручно зберігати паролі, контакти, тощо"
+    },
+    "link": {
+      "description": "Link (with \"http\")",
+      "value": "https://datastash.netlify.app/"
+    }
+  },
+  "project_2": {
+    "title": {
+      "description": "Project name",
+      "value": "Rapid News"
+    },
+    "subtitle": {
+      "description": "Few words about that project",
+      "value": "Побудовано з React.js та Sass у чорно-білому стилі. Пошук новин з вибором мови. Опис новини по ховеру, відкривається по кліку"
+    },
+    "link": {
+      "description": "Link (with \"http\")",
+      "value": "https://rapid-news-react.netlify.app/"
+    }
+  },
+  "project_3": {
+    "title": {
+      "description": "Project name",
+      "value": "Quiz"
+    },
+    "subtitle": {
+      "description": "Few words about that project",
+      "value": "Побудовано з React.js та Bootstrap. Натисніть &#34;Старт&#34; та перевірте свою ерудованість. Хай щастить!."
+    },
+    "link": {
+      "description": "Link (with \"http\")",
+      "value": "https://tangerine-twilight-004269.netlify.app/"
+    }
+  },
+  "experienceTitle": {
+    "description": "Title for \"Experience\" section (\"Experience\" recommended)",
+    "value": "Досвід"
+  },
+  "experienceSubtitle": {
+    "description": "Description for \"Experience\" section",
+    "value": "<strong>Нерелевантний досвід.</strong> Протягом останніх 10 років я займав різноманітні посади у кількох галузях, також успішно працював сам"
+  },
+  "experiencePeriodLatest": {
+    "role": {
+      "description": "Position",
+      "value": "Web Developer"
+    },
+    "company": {
+      "description": "Company",
+      "value": "Freelance"
+    },
+    "period": {
+      "description": "Period (e.g '1953-2002')",
+      "value": "2022-present"
+    },
+    "brief": {
+      "description": "Brief description",
+      "value": "Creating landing pages, web-portfolios and web-applications of any comlexity. Familiar with “Pixel Perfect”-methodology. Flexibility and accessibility – by default."
+    }
+  },
+  "experiencePeriodPrevious": {
+    "role": {
+      "description": "Position",
+      "value": "Software Developer"
+    },
+    "company": {
+      "description": "Company",
+      "value": "Freelance"
+    },
+    "period": {
+      "description": "Period (e.g '1953-2002')",
+      "value": "2021-2022"
+    },
+    "brief": {
+      "description": "Brief description",
+      "value": "Designing and developing python-based bots and desktop apps. Collecting and processing data."
+    }
+  }
+}

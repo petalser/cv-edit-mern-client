@@ -1,0 +1,159 @@
+{
+  "name": {
+    "description": "Your name",
+    "value": "Oleksandr Petrychuk"
+  },
+  "role": {
+    "description": "Role you're looking for",
+    "value": "Front-end dev"
+  },
+  "education": {
+    "description": "Education (university, college, courses)",
+    "value": "Kharkiv Petro Vasylenko National Technical University"
+  },
+  "contactLink_1": {
+    "description": "Contact link #1 (email?)",
+    "value": "petrichuck.a@gmail.com"
+  },
+  "contactLink_2": {
+    "description": "Contact link #2",
+    "value": "github.com/petalser"
+  },
+  "contactLink_3": {
+    "description": "Contact link #3",
+    "value": "linkedin.com/in/oleksandr-petrychuk"
+  },
+  "summaryTitle": {
+    "description": "Title for \"summary\" section",
+    "value": "Summary"
+  },
+  "summaryText": {
+    "description": "Actual \"summary\"",
+    "value": "I am a switcher. Currently I&#39;m combining part-time development with non-related to software full-time job. Looking for a full-time frontend (or even fullstack trainee) role."
+  },
+  "stackTitle": {
+    "description": "Title for \"my stack\" section",
+    "value": "Techs I use"
+  },
+  "stackList": {
+    "placeholders": [
+      "Title (programming language, field of knowledge",
+      "Details (frameworks, libraries, etc"
+    ],
+    "values": [
+      ["HTML5/CSS3", "Bootstrap, Tailwind, SASS, LESS, CSS modules"],
+      [
+        "Javascript/Typescript",
+        "ES6+, React.js, React Styled comp-s, React-redux (+toolkit), Node.js (Express.js, MongoDB)"
+      ],
+      ["Python", "Django, tkinter, pyQT"]
+    ]
+  },
+  "langTitle": {
+    "description": "Title for \"my languages\" section",
+    "value": "Languages I speak"
+  },
+  "langList": {
+    "placeholders": ["Language", "Level, certificate"],
+    "values": [
+      ["English", "C1"],
+      ["Ukrainian", "C2"],
+      ["Russian", "C2"],
+      ["Polish", "B1"]
+    ]
+  },
+  "projectsSectionTitle": {
+    "description": "Title for \"my projects\" section",
+    "value": "Projects I've Made"
+  },
+  "projectsSectionSummary": {
+    "description": "Summary for \"my projects\" section (optional, leave empty to remove)",
+    "value": "For last few years I&#39;ve participated a couple of projects and made some by my own (e.g. this CV). Here&#39;s a few:"
+  },
+  "project_1": {
+    "title": {
+      "description": "Project name",
+      "value": "DataStash"
+    },
+    "subtitle": {
+      "description": "Few words about that project",
+      "value": "Built with React.js (TS) and GCP (Google Auth and Firestore). Provide 1-3 inputs and &#34;secret key&#34; and your data will be encoded and sent to DB."
+    },
+    "link": {
+      "description": "Link (with \"http\")",
+      "value": "https://datastash.netlify.app/"
+    }
+  },
+  "project_2": {
+    "title": {
+      "description": "Project name",
+      "value": "Rapid News"
+    },
+    "subtitle": {
+      "description": "Few words about that project",
+      "value": "Built with React.js and Sass in BW color scheme. Search, choose language for your results. Hover over element to see description, click to read"
+    },
+    "link": {
+      "description": "Link (with \"http\")",
+      "value": "https://rapid-news-react.netlify.app/"
+    }
+  },
+  "project_3": {
+    "title": {
+      "description": "Project name",
+      "value": "Quiz"
+    },
+    "subtitle": {
+      "description": "Few words about that project",
+      "value": "Built with React.js and Bootstrap (no custom styles). Press &#34;Start&#34;, get 10 questions and try your best!."
+    },
+    "link": {
+      "description": "Link (with \"http\")",
+      "value": "https://tangerine-twilight-004269.netlify.app/"
+    }
+  },
+  "experienceTitle": {
+    "description": "Title for \"Experience\" section (\"Experience\" recommended)",
+    "value": "Experience"
+  },
+  "experienceSubtitle": {
+    "description": "Description for \"Experience\" section (optional, leave empty to remove)",
+    "value": "<strong>Irrelevant experience. </strong>I have previously held (for 10+ years) various roles both as an employee (in teams of different sizes) and as a self-employed person in various industries."
+  },
+  "experiencePeriodLatest": {
+    "role": {
+      "description": "Position",
+      "value": "Web Developer"
+    },
+    "company": {
+      "description": "Company",
+      "value": "Freelance"
+    },
+    "period": {
+      "description": "Period (e.g '1953-2002')",
+      "value": "2022-present"
+    },
+    "brief": {
+      "description": "Brief description",
+      "value": "Creating landing pages, web-portfolios and web-applications of any comlexity. Familiar with “Pixel Perfect”-methodology. Flexibility and accessibility – by default."
+    }
+  },
+  "experiencePeriodPrevious": {
+    "role": {
+      "description": "Position",
+      "value": "Software Developer"
+    },
+    "company": {
+      "description": "Company",
+      "value": "Freelance"
+    },
+    "period": {
+      "description": "Period (e.g '1953-2002')",
+      "value": "2021-2022"
+    },
+    "brief": {
+      "description": "Brief description",
+      "value": "Designing and developing python-based bots and desktop apps. Collecting and processing data."
+    }
+  }
+}
