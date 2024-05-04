@@ -1,3 +1,3 @@
 import { signal } from "@preact/signals-react";
 
-export const userData = signal({});
+export const userData = signal([]);
