@@ -4,8 +4,11 @@ import Logout from "./LogoutButton";
 import Entries from "./Entries";
 import { signalData } from "../signals/data";
 import { isPanelHovered, modalType } from "../signals/states";
+import { useTokenSignal } from "../hooks/useTokenSignal";
 
 const Panel = () => {
+  const { tokenSignal } = useTokenSignal();
+
   return (
     <ButtonGroup
       style={{ zIndex: 1100 }}
@@ -19,6 +22,7 @@ const Panel = () => {
       vertical
     >
       <Save2PDFButton />
+
       <Button
         variant="secondary"
         onClick={() => {
@@ -27,6 +31,7 @@ const Panel = () => {
       >
         Edit JSON
       </Button>
+
       <Button
         variant="secondary"
         onClick={() => {
@@ -35,15 +40,33 @@ const Panel = () => {
       >
         Clipboard JSON
       </Button>
-      <Button
-        variant="success"
-        onClick={() => {
-          modalType.value = "login";
-        }}
-      >
-        Edit JSON
-      </Button>
-      <Logout />
+
+      <div className="border border-secondary w-100 my-1"></div>
+
+      {tokenSignal ? (
+        <Logout />
+      ) : (
+        <>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              modalType.value = "login";
+            }}
+          >
+            Log In
+          </Button>
+
+          <Button
+            variant="secondary"
+            onClick={() => {
+              modalType.value = "register";
+            }}
+          >
+            Register
+          </Button>
+        </>
+      )}
+
       <Entries />
     </ButtonGroup>
   );
