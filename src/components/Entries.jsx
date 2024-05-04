@@ -1,18 +1,20 @@
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
+import { Button, ButtonGroup } from "react-bootstrap";
 
 const Entries = () => {
   const { userDataSignal } = useUserDataSignal();
-  console.log(">>>>");
-  console.log(userDataSignal);
+
   return (
     <>
       <h2>Entries</h2>
-      <p>{userDataSignal?.data?.message}</p>
-      <ul>
-        {/* {userDataSignal?.map((item, index) => (
-          <li key={index}>{JSON.stringify(item)}</li>
-        ))} */}
-      </ul>
+      <ButtonGroup vertical>
+        {userDataSignal &&
+          userDataSignal.map((item, index) => (
+            <Button variant="secondary" key={index}>
+              {item.name}
+            </Button>
+          ))}
+      </ButtonGroup>
     </>
   );
 };
