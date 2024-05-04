@@ -10,8 +10,10 @@ const ModalLogin = ({ show, onHide }) => {
 
   const { setTokenSignal } = useTokenSignal();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
+      console.log("AUTH");
       const response = await privateAxios.post("/auth/", {
         email,
         password,
@@ -42,7 +44,7 @@ const ModalLogin = ({ show, onHide }) => {
             >
               Email
               <input
-                type="email"
+                type="text"
                 id="email"
                 className="form-control w-75"
                 value={email}
