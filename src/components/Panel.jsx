@@ -1,5 +1,6 @@
 import { Button, ButtonGroup } from "react-bootstrap";
 import Save2PDFButton from "./Save2PDFButton";
+import { SaveButton } from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
 import { signalData } from "../signals/data";
@@ -11,8 +12,8 @@ const Panel = () => {
 
   return (
     <ButtonGroup
-      style={{ zIndex: 1100 }}
-      className="position-fixed"
+      style={{ zIndex: 1100, width: "10rem" }}
+      className="position-fixed bg-black bg-opacity-25"
       onMouseEnter={() => {
         isPanelHovered.value = true;
       }}
@@ -40,6 +41,8 @@ const Panel = () => {
       >
         Clipboard JSON
       </Button>
+
+      <SaveButton />
 
       <div className="border border-secondary w-100 my-1"></div>
 
