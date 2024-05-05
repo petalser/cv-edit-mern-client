@@ -3,19 +3,20 @@ import { useState } from "react";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { useData } from "../signals/data";
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
+import { ArrowRightSquareFill } from "react-bootstrap-icons";
 
 export const SaveButton = () => {
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState("");
   const { data } = useData();
-  const { userDataSignal } = useUserDataSignal();
+  const { userDataSignal, setUserDataSignal } = useUserDataSignal();
   const privateAxios = usePrivateAxios();
 
   const showForm = () => {
     setToggleForm(true);
   };
 
-  const handleClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -23,15 +24,22 @@ export const SaveButton = () => {
         name,
         value: data,
       });
+      console.log(response.data);
+      setToggleForm(false);
+      // setUserDataSignal(response.data);
     } catch (err) {
-      console.log(err.data.response);
+      console.log(err.response.data.message, "err submit");
     }
   };
 
   return (
     <>
       <Dropdown as={ButtonGroup}>
-        <Button variant="secondary" disabled={toggleForm} onClick={handleClick}>
+        <Button
+          variant="secondary"
+          disabled={toggleForm}
+          onClick={handleSubmit}
+        >
           Save
         </Button>
 
@@ -57,7 +65,7 @@ export const SaveButton = () => {
       </Dropdown>
       {toggleForm && (
         <Form>
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3 d-flex">
             <Form.Control
               type="text"
               placeholder="Name"
@@ -66,7 +74,9 @@ export const SaveButton = () => {
                 setName(e.target.value);
               }}
             />
-            <Form.Control type="button" value="BUTT" />
+            <Button className="p-0" onClick={handleSubmit}>
+              <ArrowRightSquareFill size={40} />
+            </Button>
           </Form.Group>
         </Form>
       )}
