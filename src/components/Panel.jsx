@@ -6,14 +6,16 @@ import Entries from "./Entries";
 import { signalData } from "../signals/data";
 import { isPanelHovered, modalType } from "../signals/states";
 import { useTokenSignal } from "../hooks/useTokenSignal";
+import { useUserDataSignal } from "../hooks/useUserDataSignal";
 
 const Panel = () => {
   const { tokenSignal } = useTokenSignal();
+  const { userDataSignal } = useUserDataSignal();
 
   return (
     <ButtonGroup
       style={{ zIndex: 1100, width: "10rem" }}
-      className="position-fixed bg-black bg-opacity-25"
+      className="list-group position-fixed bg-black bg-opacity-25"
       onMouseEnter={() => {
         isPanelHovered.value = true;
       }}
@@ -70,7 +72,7 @@ const Panel = () => {
         </>
       )}
 
-      <Entries />
+      {userDataSignal.length && <Entries />}
     </ButtonGroup>
   );
 };
