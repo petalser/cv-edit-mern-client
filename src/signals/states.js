@@ -12,6 +12,8 @@ export const modalType = signal("blank");
 
 export const token = signal(null);
 
+export const currentEntrySignal = signal(null);
+
 effect(() => {
   if (isExported.value) {
     setTimeout(() => {
