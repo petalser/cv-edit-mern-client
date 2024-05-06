@@ -18,19 +18,21 @@ export const showInput = (e) => {
 
     inputField.focus();
 
-    const inputListener = () => {
-      parent.value = inputField.value;
-    };
+    // const inputListener = () => {};
 
     const blurListener = () => {
-      inputField.removeEventListener("input", inputListener);
+      signalData.value = {
+        ...signalData.value,
+        [parentId]: { ...signalData.value[parentId], value: inputField.value },
+      };
+      // inputField.removeEventListener("input", inputListener);
       inputField.removeEventListener("blur", blurListener);
 
       e.target.removeChild(inputField);
       e.target.textContent = parent.value;
     };
 
-    inputField.addEventListener("input", inputListener);
+    // inputField.addEventListener("input", inputListener);
 
     inputField.addEventListener("blur", blurListener);
   }
