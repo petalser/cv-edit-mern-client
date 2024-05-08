@@ -12,6 +12,7 @@ import { showInput } from "./utils/showInput";
 import { useSignals } from "@preact/signals-react/runtime";
 import { effect } from "@preact/signals-react";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
+import { useData } from "./signals/data";
 import { useUserDataSignal } from "./hooks/useUserDataSignal";
 import React, { Suspense, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -23,25 +24,26 @@ const Modal = React.lazy(() => import("./components/Modal"));
 function App() {
   useSignals();
 
-  let data = signalData.value;
-
   const [targetID, setTargetID] = useState(null);
 
   const privateAxios = usePrivateAxios();
+  const { data, setData } = useData();
   const { setUserDataSignal } = useUserDataSignal();
 
-  useEffect(() => {
+  effect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await privateAxios.get("/entries");
+        const response = await privateAxios.get("/entries"); //list of entries (_id, userID, name, value)
+        setData(response.data[0].value);
         setUserDataSignal(response.data);
       } catch (err) {
-        setUserDataSignal(err.response, "error useffect");
+        console.log(Object.keys(err), "fetch err");
       }
     };
     fetchEntries();
   }, []);
 
+  //triggers Panel
   effect(() => {
     if (modalType.value === "blank") {
       const panelTrigger = (event) => {
