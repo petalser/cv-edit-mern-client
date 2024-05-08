@@ -2,6 +2,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
 import { privateAxios } from "../../api/axios";
 import { useTokenSignal } from "../../hooks/useTokenSignal";
+import { useUserDataSignal } from "../../hooks/useUserDataSignal";
 
 const ModalLogin = ({ show, onHide }) => {
   const [email, setEmail] = useState("");
@@ -9,15 +10,16 @@ const ModalLogin = ({ show, onHide }) => {
   const [errMsg, setErrMsg] = useState("");
 
   const { setTokenSignal } = useTokenSignal();
+  const { setUserDataSignal } = useUserDataSignal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("AUTH");
       const response = await privateAxios.post("/auth/", {
         email,
         password,
       });
+      setUserDataSignal(response.data.entries);
       setTokenSignal(response.data.accessToken);
       onHide();
     } catch (err) {
