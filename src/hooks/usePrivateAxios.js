@@ -27,7 +27,6 @@ export const usePrivateAxios = () => {
           const newAccessToken = await privateAxios
             .get("/auth/refresh")
             .then((res) => res.data.accessToken);
-          console.log("new AT");
           request.headers["Authorization"] = `Bearer ${newAccessToken}`;
           setTokenSignal(newAccessToken);
           return privateAxios(request);

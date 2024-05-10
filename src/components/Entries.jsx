@@ -18,7 +18,6 @@ const Entries = () => {
   };
 
   const handleDelete = async (e, entryID) => {
-    console.log(entryID, "entryID");
     try {
       const response = await privateAxios.delete("/entries/", {
         data: { entryID },
@@ -29,9 +28,9 @@ const Entries = () => {
         );
         setCurrentEntry(userDataSignal[0]._id);
       }
-      console.log(response, "RESPONSE");
+      console.log("Deletion successfull:", response);
     } catch (err) {
-      console.log(err, "DELETION");
+      console.log("Deletion failed:", err);
     }
   };
 

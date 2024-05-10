@@ -27,7 +27,3 @@ effect(() => {
     isTooltipEnabled.value = false;
   }
 });
-
-effect(() => {
-  console.log(token.value, "token efffect");
-});

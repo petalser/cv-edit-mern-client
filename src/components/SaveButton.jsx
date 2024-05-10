@@ -10,7 +10,7 @@ import { isPanelEnabled } from "../signals/states";
 export const SaveButton = () => {
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState("");
-  const [showDropdown, setShowDropdown] = useState(true);
+  // const [showDropdown, setShowDropdown] = useState(true);
   const { data } = useData();
   const { userDataSignal, setUserDataSignal } = useUserDataSignal();
   const { setCurrentEntry } = useCurrentEntrySignal();
@@ -42,14 +42,14 @@ export const SaveButton = () => {
 
   const handleUpdate = async ({ name, value, _id }) => {
     try {
-      const response = await privateAxios.put("/entries/", {
+      await privateAxios.put("/entries/", {
         entryID: _id,
         name,
         value,
       });
       isPanelEnabled.value = false;
     } catch (err) {
-      console.error(err);
+      console.log("Update failed:", err);
     }
   };
 
@@ -70,7 +70,7 @@ export const SaveButton = () => {
           <Dropdown.Item className="btn btn-primary" onClick={showForm}>
             Save as...
           </Dropdown.Item>
-          {userDataSignal.length > 0 && showDropdown && (
+          {userDataSignal.length > 0 && (
             <>
               <span>or update one of existing entries:</span>
               {userDataSignal.map((item, index) => (

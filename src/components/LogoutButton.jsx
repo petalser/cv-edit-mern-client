@@ -15,9 +15,9 @@ const Logout = () => {
           withCredentials: true,
         }
       );
-      console.log(response, "logout");
+      console.log("Logged out");
     } catch (err) {
-      console.log(err, "err mess");
+      console.log("Logging out error:", err);
     } finally {
       setTokenSignal(null);
     }

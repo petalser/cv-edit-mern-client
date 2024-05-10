@@ -9,7 +9,6 @@ const ModalStatic = ({ show, onHide, id }) => {
   const [data, setData] = useState({ ...dataChunk });
 
   const linkCheck = (item) => {
-    console.log(data[item].value);
     if (item !== "link") {
       return true;
     }

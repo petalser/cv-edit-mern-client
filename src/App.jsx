@@ -30,14 +30,19 @@ function App() {
   const { data, setData } = useData();
   const { setUserDataSignal } = useUserDataSignal();
 
-  effect(() => {
+  useEffect(() => {
     const fetchEntries = async () => {
       try {
         const response = await privateAxios.get("/entries"); //list of entries (_id, userID, name, value)
         setData(response.data[0].value);
         setUserDataSignal(response.data);
+        console.log("Fetched successfully");
       } catch (err) {
-        console.log(Object.keys(err), "fetch err");
+        console.log(
+          "Fetching error:",
+          err.response.data.message,
+          err.response.status
+        );
       }
     };
     fetchEntries();
