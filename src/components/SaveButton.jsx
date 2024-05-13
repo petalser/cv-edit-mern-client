@@ -1,23 +1,22 @@
-import { Button, ButtonGroup, Dropdown, Form } from "react-bootstrap";
+import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { useState } from "react";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { useData } from "../signals/data";
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
 import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
-import { ArrowRightSquareFill } from "react-bootstrap-icons";
+import { CaretDown, CaretUp, CaretRight } from "react-bootstrap-icons";
 import { isPanelEnabled } from "../signals/states";
 
 export const SaveButton = () => {
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState("");
-  // const [showDropdown, setShowDropdown] = useState(true);
   const { data } = useData();
   const { userDataSignal, setUserDataSignal } = useUserDataSignal();
   const { setCurrentEntry } = useCurrentEntrySignal();
   const privateAxios = usePrivateAxios();
 
   const showForm = () => {
-    setToggleForm(true);
+    setToggleForm((prev) => !prev);
   };
 
   const handleSubmit = async () => {
@@ -36,7 +35,6 @@ export const SaveButton = () => {
       console.log(err.response.data.message, "err submit");
     } finally {
       setToggleForm(false);
-      // setName("");
     }
   };
 
@@ -54,51 +52,56 @@ export const SaveButton = () => {
   };
 
   return (
-    <>
-      <Dropdown as={ButtonGroup}>
+    <ButtonGroup vertical className="w-100 bg-secondary text-white">
+      <div className="d-flex w-100">
         <Button
           variant="secondary"
+          className="w-100"
           disabled={toggleForm}
           onClick={handleSubmit}
         >
           Save
         </Button>
 
-        <Dropdown.Toggle split variant="dark" className="p-0" />
+        <Button onClick={showForm} className="p-0 bg-dark bg-opacity-50">
+          {toggleForm ? <CaretUp /> : <CaretDown />}
+        </Button>
+      </div>
 
-        <Dropdown.Menu className="bg-warning">
-          <Dropdown.Item className="btn btn-primary" onClick={showForm}>
-            Save as...
-          </Dropdown.Item>
+      {toggleForm && (
+        <>
+          <Form>
+            <Form.Group className="d-flex bg-white">
+              <Form.Control
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+              <Button className="p-0" onClick={handleSubmit}>
+                <CaretRight />
+              </Button>
+            </Form.Group>
+          </Form>
           {userDataSignal.length > 0 && (
             <>
               <span>or update one of existing entries:</span>
               {userDataSignal.map((item, index) => (
-                <Button key={index} onClick={() => handleUpdate(item)}>
+                <Button
+                  variant="secondary"
+                  className="border border-light"
+                  key={index}
+                  onClick={() => handleUpdate(item)}
+                >
                   {item.name}
                 </Button>
               ))}
             </>
           )}
-        </Dropdown.Menu>
-      </Dropdown>
-      {toggleForm && (
-        <Form>
-          <Form.Group className="d-flex bg-white">
-            <Form.Control
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
-            <Button className="p-0" onClick={handleSubmit}>
-              <ArrowRightSquareFill size={40} />
-            </Button>
-          </Form.Group>
-        </Form>
+        </>
       )}
-    </>
+    </ButtonGroup>
   );
 };
