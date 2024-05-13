@@ -1,8 +1,7 @@
 import { signalData } from "../signals/data";
 
-const data = signalData.value;
-
 export const showInput = (e) => {
+  const data = signalData.value;
   if (e.target.tagName !== "INPUT") {
     const parentId = e.target.id;
     const parent = data[parentId];
@@ -18,22 +17,25 @@ export const showInput = (e) => {
 
     inputField.focus();
 
-    // const inputListener = () => {};
+    const enterKeyListener = (e) => {
+      if (e.key === "Enter") {
+        inputField.blur();
+      }
+    };
 
     const blurListener = () => {
       signalData.value = {
         ...signalData.value,
         [parentId]: { ...signalData.value[parentId], value: inputField.value },
       };
-      // inputField.removeEventListener("input", inputListener);
+      inputField.removeEventListener("keydown", enterKeyListener);
       inputField.removeEventListener("blur", blurListener);
 
       e.target.removeChild(inputField);
       e.target.textContent = parent.value;
     };
 
-    // inputField.addEventListener("input", inputListener);
-
+    inputField.addEventListener("keydown", enterKeyListener);
     inputField.addEventListener("blur", blurListener);
   }
 };
