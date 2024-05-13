@@ -8,7 +8,7 @@ const Logout = () => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      await axios.post(
         "/auth/logout",
         {},
         {

@@ -44,7 +44,7 @@ const ModalStatic = ({ show, onHide, id }) => {
           </div>
 
           <div className="col">
-            {Object.entries(dataChunk).map(([key, item], index) => (
+            {Object.keys(dataChunk).map((key, index) => (
               <input
                 type="text"
                 id={key}

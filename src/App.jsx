@@ -1,4 +1,3 @@
-import { signalData } from "./signals/data";
 import {
   isPanelEnabled,
   isPanelHovered,
@@ -14,12 +13,12 @@ import { effect } from "@preact/signals-react";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
 import { useData } from "./signals/data";
 import { useUserDataSignal } from "./hooks/useUserDataSignal";
-import React, { Suspense, useState, useEffect } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
 
-const Panel = React.lazy(() => import("./components/Panel"));
-const Modal = React.lazy(() => import("./components/Modal"));
+const Panel = lazy(() => import("./components/Panel"));
+const Modal = lazy(() => import("./components/Modal"));
 
 function App() {
   useSignals();
