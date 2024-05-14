@@ -19,7 +19,8 @@ export const SaveButton = () => {
     setToggleForm((prev) => !prev);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const nameValue = data.name.value;
     const nameArray = nameValue.split(" ");
     const lastName = nameArray[nameArray.length - 1];
@@ -32,20 +33,22 @@ export const SaveButton = () => {
       setUserDataSignal(response.data.entries);
       setCurrentEntry(response.data.entryID);
     } catch (err) {
-      console.log(err.response.data.message, "err submit");
+      console.log(err.response.data.message || err.message, "err submit");
     } finally {
       setToggleForm(false);
     }
   };
 
-  const handleUpdate = async ({ name, value, _id }) => {
+  const handleUpdate = async ({ name, _id }) => {
     try {
-      await privateAxios.put("/entries/", {
+      const payload = {
         entryID: _id,
         name,
-        value,
-      });
+        value: data,
+      };
+      const response = await privateAxios.put("/entries/", payload);
       isPanelEnabled.value = false;
+      console.log("UPDATE SUCCESSFUL", payload);
     } catch (err) {
       console.log("Update failed:", err);
     }
@@ -70,7 +73,7 @@ export const SaveButton = () => {
 
       {toggleForm && (
         <>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="d-flex bg-white">
               <Form.Control
                 type="text"
