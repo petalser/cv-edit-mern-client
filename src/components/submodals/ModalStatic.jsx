@@ -1,18 +1,36 @@
 import { Modal, Button } from "react-bootstrap";
-import { signalData } from "../../signals/data";
-import { useState } from "react";
+import { useData } from "../../signals/data";
+import { useState, useEffect } from "react";
 
 const ModalStatic = ({ show, onHide, id }) => {
+  const { data, setData } = useData();
   //chunk of global data object
-  const dataChunk = signalData.value[id];
+  const dataChunk = data[id];
 
-  const [data, setData] = useState({ ...dataChunk });
+  const [localData, setLocalData] = useState({ ...dataChunk });
+  const [blocked, setBlocked] = useState(false);
 
-  const linkCheck = (item) => {
-    if (item !== "link") {
-      return true;
+  useEffect(() => {
+    if (localData.link) {
+      setBlocked(!localData.link.value.startsWith("http"));
     }
-    return data[item].value.startsWith("http");
+  }, [localData]);
+
+  const keyCheck = (key) => {
+    console.log(key, "KEY");
+    if (key === "link" && blocked)
+      return {
+        outline: "1px solid red",
+        boxShadow: "0 0 0 0.3rem rgba(255, 0, 0, 0.25)",
+        borderRadius: "0.25rem",
+      };
+  };
+
+  const handleInputChange = (e, key) => {
+    setLocalData((prev) => ({
+      ...prev,
+      [key]: { ...prev[key], value: e.target.value },
+    }));
   };
 
   return (
@@ -23,41 +41,23 @@ const ModalStatic = ({ show, onHide, id }) => {
       <Modal.Body>
         <div className="row">
           <div className="col">
-            {Object.entries(dataChunk).map(([key, item], index) => (
-              <label
-                htmlFor={key}
-                className="form-label d-flex justify-content-end p-1"
-                style={
-                  !linkCheck(key)
-                    ? {
-                        outline: "1px solid red",
-                        boxShadow: "0 0 0 0.3rem rgba(255, 0, 0, 0.25)",
-                        borderRadius: "0.25rem",
-                      }
-                    : {}
-                }
-                key={index}
-              >
-                {item.description}
-              </label>
-            ))}
-          </div>
-
-          <div className="col">
-            {Object.keys(dataChunk).map((key, index) => (
-              <input
-                type="text"
-                id={key}
-                className="form-control"
-                value={data[key].value}
-                onChange={(e) =>
-                  setData((prev) => ({
-                    ...prev,
-                    [key]: { ...prev[key], value: e.target.value },
-                  }))
-                }
-                key={index}
-              />
+            {Object.keys(localData).map((key, i) => (
+              <div key={i} className="d-flex">
+                <label
+                  htmlFor={key}
+                  className="form-label p-1 w-100"
+                  style={keyCheck(key)}
+                >
+                  {localData[key].description}
+                </label>
+                <input
+                  type="text"
+                  id={key}
+                  className="form-control"
+                  value={localData[key].value}
+                  onChange={(e) => handleInputChange(e, key)}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -69,9 +69,10 @@ const ModalStatic = ({ show, onHide, id }) => {
         <Button
           variant="primary"
           onClick={() => {
-            signalData.value = { ...signalData.value, [id]: data };
+            setData({ ...data, [id]: localData });
             onHide();
           }}
+          disabled={blocked}
         >
           Save Changes
         </Button>
