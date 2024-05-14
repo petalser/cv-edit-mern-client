@@ -14,6 +14,8 @@ export const token = signal(null);
 
 export const currentEntrySignal = signal(null);
 
+export const networkSignal = signal(false);
+
 effect(() => {
   if (isExported.value) {
     setTimeout(() => {
