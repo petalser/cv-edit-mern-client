@@ -7,7 +7,7 @@ import { TrashFill } from "react-bootstrap-icons";
 
 const Entries = () => {
   const { userDataSignal, setUserDataSignal } = useUserDataSignal();
-  const { setData } = useData();
+  const { setData, resetData } = useData();
   const { currentEntry, setCurrentEntry } = useCurrentEntrySignal();
   const privateAxios = usePrivateAxios();
 
@@ -23,12 +23,21 @@ const Entries = () => {
         data: { entryID },
       });
       if (response.status === 200) {
-        setUserDataSignal(
-          userDataSignal.filter((item) => item._id !== entryID)
-        );
-        setCurrentEntry(userDataSignal[0]._id);
+        const filtered = userDataSignal.filter((item) => item._id !== entryID);
+        filtered.map((item) => {
+          console.log(item._id, "ID");
+        });
+
+        if (filtered.length) {
+          setUserDataSignal(filtered);
+          setData(filtered[0].value);
+          setCurrentEntry(filtered[0]._id);
+        } else {
+          resetData();
+          setUserDataSignal([]);
+          setCurrentEntry(null);
+        }
       }
-      console.log("Deletion successfull:", response);
     } catch (err) {
       console.log("Deletion failed:", err);
     }

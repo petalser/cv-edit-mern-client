@@ -10,5 +10,9 @@ export const useData = () => {
     signalData.value = argument;
   };
 
-  return { data, setData };
+  const resetData = () => {
+    signalData.value = defaultData;
+  };
+
+  return { data, setData, resetData };
 };
