@@ -1,12 +1,12 @@
 import { Button } from "react-bootstrap";
-import { signalData } from "../signals/data";
+import { useData } from "../signals/data";
 import html2pdf from "html2pdf.js";
 import { isExported } from "../signals/states";
 
-const user = signalData.value.name.value;
-const name = user.split(" ").join("_");
-
 const Save2PDFButton = () => {
+  const { data } = useData();
+  const user = data.name.value;
+  const name = user.split(" ").join("_");
   const handleSave = () => {
     const content = document.getElementById("pageContent");
     const options = {
