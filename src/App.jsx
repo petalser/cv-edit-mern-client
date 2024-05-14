@@ -4,6 +4,7 @@ import {
   isTooltipEnabled,
   isExported,
   modalType,
+  networkSignal,
 } from "./signals/states";
 import Tooltip from "./components/Tooltip";
 import Card from "./components/Card";
@@ -35,13 +36,12 @@ function App() {
         const response = await privateAxios.get("/entries"); //list of entries (_id, userID, name, value)
         setData(response.data[0].value);
         setUserDataSignal(response.data);
+        networkSignal.value = true;
         console.log("Fetched successfully");
       } catch (err) {
-        console.log(
-          "Fetching error:",
-          err.response.data.message,
-          err.response.status
-        );
+        networkSignal.value = err.response ? true : false;
+        const log = err.response ? err.response.data.message : err.message;
+        console.log("Fetching error:", log);
       }
     };
     fetchEntries();
