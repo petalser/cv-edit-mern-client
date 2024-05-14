@@ -4,7 +4,7 @@ import { SaveButton } from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
 import { signalData } from "../signals/data";
-import { isPanelHovered, modalType } from "../signals/states";
+import { isPanelHovered, modalType, networkSignal } from "../signals/states";
 import { useTokenSignal } from "../hooks/useTokenSignal";
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
 
@@ -43,36 +43,39 @@ const Panel = () => {
       >
         Clipboard JSON
       </Button>
-
-      <SaveButton />
-
-      <div className="border border-secondary w-100 my-1"></div>
-
-      {tokenSignal ? (
-        <Logout />
-      ) : (
+      {networkSignal.value && (
         <>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              modalType.value = "login";
-            }}
-          >
-            Log In
-          </Button>
+          <SaveButton />
 
-          <Button
-            variant="secondary"
-            onClick={() => {
-              modalType.value = "register";
-            }}
-          >
-            Register
-          </Button>
+          <div className="border border-secondary w-100 my-1"></div>
+
+          {tokenSignal ? (
+            <Logout />
+          ) : (
+            <>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  modalType.value = "login";
+                }}
+              >
+                Log In
+              </Button>
+
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  modalType.value = "register";
+                }}
+              >
+                Register
+              </Button>
+            </>
+          )}
+
+          {userDataSignal.length && <Entries />}
         </>
       )}
-
-      {userDataSignal.length && <Entries />}
     </ButtonGroup>
   );
 };
