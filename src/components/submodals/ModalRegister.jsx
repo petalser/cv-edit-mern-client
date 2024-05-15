@@ -9,18 +9,70 @@ const ModalRegister = ({ show, onHide }) => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState({
+    email: "",
+    password: "",
+    check: "",
+  });
 
   const { setTokenSignal } = useTokenSignal();
   const { setModalTypeSignal } = useModalType();
 
   useEffect(() => {
-    if (password && passwordCheck) {
-      password === passwordCheck
-        ? setIsDisabled(false)
-        : setErrMsg("Please, provide identical passwords");
+    const MAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailCheck = MAIL_PATTERN.test(email);
+    if (email && !emailCheck) {
+      setErrMsg((prev) => ({
+        ...prev,
+        email: "Invalid email",
+      }));
+    } else {
+      setErrMsg((prev) => ({
+        ...prev,
+        email: "",
+      }));
+    }
+  }, [email]);
+
+  useEffect(() => {
+    const PATTERN = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+    const strong = PATTERN.test(password);
+
+    if (password && !strong) {
+      setErrMsg((prev) => ({
+        ...prev,
+        password: "6+ chars long, 1+ uppercase, 1+ number",
+      }));
+    } else {
+      setErrMsg((prev) => ({
+        ...prev,
+        password: "",
+      }));
+    }
+  }, [password]);
+
+  useEffect(() => {
+    const match = password === passwordCheck;
+
+    if (match) {
+      setErrMsg((prev) => ({
+        ...prev,
+        check: "",
+      }));
+    } else {
+      setErrMsg((prev) => ({
+        ...prev,
+        check: "Passwords doesn't match",
+      }));
     }
   }, [password, passwordCheck]);
+
+  useEffect(() => {
+    const hasErrors = Object.values(errMsg).join("").length > 0;
+    const notEmptyForm = email && password && passwordCheck;
+
+    setIsDisabled(!notEmptyForm.length || hasErrors);
+  }, [email, password, passwordCheck, errMsg]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,19 +99,21 @@ const ModalRegister = ({ show, onHide }) => {
       </Modal.Header>
 
       <Modal.Body>
-        <p>{errMsg}</p>
-
         <div className="row">
           <form className="col">
             <label
               htmlFor="email"
               className="form-label d-flex justify-content-between p-1"
             >
-              Email
+              {errMsg.email ? (
+                <span style={{ color: "red" }}>{errMsg.email}</span>
+              ) : (
+                "Email"
+              )}
               <input
                 type="email"
                 id="email"
-                className="form-control w-75"
+                className="form-control w-50"
                 value={email}
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -70,11 +124,15 @@ const ModalRegister = ({ show, onHide }) => {
               htmlFor="password"
               className="form-label d-flex justify-content-between p-1"
             >
-              Password
+              {errMsg.password ? (
+                <span style={{ color: "red" }}>{errMsg.password}</span>
+              ) : (
+                "Password"
+              )}
               <input
                 type="password"
                 id="password"
-                className="form-control w-75"
+                className="form-control w-50"
                 value={password}
                 required
                 onChange={(e) => setPassword(e.target.value)}
@@ -85,11 +143,15 @@ const ModalRegister = ({ show, onHide }) => {
               htmlFor="passwordCheck"
               className="form-label d-flex justify-content-between p-1"
             >
-              Password Confirmation
+              {errMsg.check ? (
+                <span style={{ color: "red" }}>{errMsg.check}</span>
+              ) : (
+                "Confirm password"
+              )}
               <input
                 type="password"
                 id="passwordCheck"
-                className="form-control w-75"
+                className="form-control w-50"
                 value={passwordCheck}
                 required
                 onChange={(e) => setPasswordCheck(e.target.value)}
@@ -102,7 +164,7 @@ const ModalRegister = ({ show, onHide }) => {
               <Button
                 variant="primary"
                 type="submit"
-                className="w-75"
+                className="w-50"
                 onClick={handleSubmit}
                 disabled={isDisabled}
               >
@@ -113,11 +175,11 @@ const ModalRegister = ({ show, onHide }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button className="m-0 w-25" variant="secondary" onClick={onHide}>
           Cancel
         </Button>
 
-        <Button variant="primary" onClick={handleClick}>
+        <Button className="m-1 w-25" variant="primary" onClick={handleClick}>
           Log In
         </Button>
       </Modal.Footer>
