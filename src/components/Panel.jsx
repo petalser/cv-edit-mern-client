@@ -73,7 +73,7 @@ const Panel = () => {
             </>
           )}
 
-          {userDataSignal.length && <Entries />}
+          {userDataSignal.length ? <Entries /> : null}
         </>
       )}
     </ButtonGroup>
