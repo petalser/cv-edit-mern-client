@@ -12,19 +12,11 @@ const ModalStatic = ({ show, onHide, id }) => {
 
   useEffect(() => {
     if (localData.link) {
-      setBlocked(!localData.link.value.startsWith("http"));
+      const PATTERN = /^(https):\/\/[^\s/$.?#].[^\s]*$/;
+      const isValidLink = PATTERN.test(localData.link.value);
+      setBlocked(!isValidLink);
     }
   }, [localData]);
-
-  const keyCheck = (key) => {
-    console.log(key, "KEY");
-    if (key === "link" && blocked)
-      return {
-        outline: "1px solid red",
-        boxShadow: "0 0 0 0.3rem rgba(255, 0, 0, 0.25)",
-        borderRadius: "0.25rem",
-      };
-  };
 
   const handleInputChange = (e, key) => {
     setLocalData((prev) => ({
@@ -43,12 +35,12 @@ const ModalStatic = ({ show, onHide, id }) => {
           <div className="col">
             {Object.keys(localData).map((key, i) => (
               <div key={i} className="d-flex">
-                <label
-                  htmlFor={key}
-                  className="form-label p-1 w-100"
-                  style={keyCheck(key)}
-                >
-                  {localData[key].description}
+                <label htmlFor={key} className="form-label p-1 w-100">
+                  {key === "link" && blocked ? (
+                    <span style={{ color: "red" }}>Invalid link</span>
+                  ) : (
+                    localData[key].description
+                  )}
                 </label>
                 <input
                   type="text"
