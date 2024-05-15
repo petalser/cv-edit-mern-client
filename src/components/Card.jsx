@@ -1,5 +1,4 @@
 import { Card, Button } from "react-bootstrap";
-import { useState } from "react";
 
 const CardComponent = ({ content, handleClick }) => {
   const handleClickWrapper = (e) => {
@@ -11,7 +10,7 @@ const CardComponent = ({ content, handleClick }) => {
   };
 
   return (
-    <Card className="col hoverFX" onClick={(e) => handleClickWrapper(e)}>
+    <Card className="col hoverFX m-1" onClick={(e) => handleClickWrapper(e)}>
       <Card.Body>
         <Card.Title>
           {content.title ? content.title.value : content.company.value}
