@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { useState } from "react";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
-import { useData } from "../signals/data";
+import { useData } from "../hooks/useDataSignal";
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
 import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
 import { CaretDown, CaretUp, CaretRight } from "react-bootstrap-icons";

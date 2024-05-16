@@ -3,12 +3,13 @@ import Save2PDFButton from "./Save2PDFButton";
 import { SaveButton } from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
-import { signalData } from "../signals/data";
+import { useData } from "../hooks/useDataSignal";
 import { isPanelHovered, modalType, networkSignal } from "../signals/states";
 import { useTokenSignal } from "../hooks/useTokenSignal";
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
 
 const Panel = () => {
+  const { data } = useData();
   const { tokenSignal } = useTokenSignal();
   const { userDataSignal } = useUserDataSignal();
 
@@ -38,7 +39,7 @@ const Panel = () => {
       <Button
         variant="secondary"
         onClick={() => {
-          navigator.clipboard.writeText(JSON.stringify(signalData.value));
+          navigator.clipboard.writeText(JSON.stringify(data));
         }}
       >
         Clipboard JSON

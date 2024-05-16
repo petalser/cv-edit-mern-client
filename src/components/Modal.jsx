@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { lazy, Suspense } from "react";
 
 const ModalWrapper = ({ show, onHide, id, modalType }) => {
   // Capitalize "modalType" to construct the component filename
@@ -6,7 +6,7 @@ const ModalWrapper = ({ show, onHide, id, modalType }) => {
     1
   )}`;
 
-  const Modal = React.lazy(() => import(`./submodals/${modalName}.jsx`));
+  const Modal = lazy(() => import(`./submodals/${modalName}.jsx`));
 
   const notJson = modalType != "json";
 

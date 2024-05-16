@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import { useData } from "../../signals/data";
+import { useData } from "../../hooks/useDataSignal";
 import { useState, useEffect } from "react";
 
 const ModalStatic = ({ show, onHide, id }) => {

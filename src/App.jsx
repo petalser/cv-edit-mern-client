@@ -12,7 +12,7 @@ import { showInput } from "./utils/showInput";
 import { useSignals } from "@preact/signals-react/runtime";
 import { effect } from "@preact/signals-react";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
-import { useData } from "./signals/data";
+import { useData } from "./hooks/useDataSignal";
 import { useUserDataSignal } from "./hooks/useUserDataSignal";
 import { Suspense, lazy, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";

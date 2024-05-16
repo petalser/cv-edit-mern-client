@@ -1,12 +1,18 @@
 import { Modal, Button, Form } from "react-bootstrap";
-import { signalData } from "../../signals/data";
+import { useData } from "../../hooks/useDataSignal";
 import { useRef } from "react";
 
 const ModalJson = ({ show, onHide, id }) => {
-  //chunk of global data object
-  const json = signalData.value;
+  //global data object
+  const { data: json, setData } = useData();
 
   const area = useRef(null);
+
+  const handleSave = () => {
+    const content = JSON.parse(area.current.value);
+    setData(content);
+    onHide();
+  };
 
   return (
     <Modal show={show} onHide={onHide}>
@@ -30,13 +36,7 @@ const ModalJson = ({ show, onHide, id }) => {
         <Button variant="secondary" onClick={onHide}>
           Cancel
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => {
-            signalData.value = JSON.parse(area.current.value);
-            onHide();
-          }}
-        >
+        <Button variant="primary" onClick={handleSave}>
           Save Changes
         </Button>
       </Modal.Footer>

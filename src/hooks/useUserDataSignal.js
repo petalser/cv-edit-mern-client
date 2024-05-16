@@ -1,4 +1,6 @@
-import { userData } from "../signals/userData";
+import { signal } from "@preact/signals-react";
+
+export const userData = signal([]);
 
 export const useUserDataSignal = () => {
   const userDataSignal = userData.value;

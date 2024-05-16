@@ -1,4 +1,4 @@
-import { signalData } from "../signals/data";
+import { signalData } from "../hooks/useDataSignal";
 
 export const showInput = (e) => {
   const data = signalData.value;

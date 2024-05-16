@@ -1,13 +1,13 @@
 import { Modal, Button } from "react-bootstrap";
 import { Trash } from "react-bootstrap-icons";
-import { signalData } from "../../signals/data";
+import { useData } from "../../hooks/useDataSignal";
 import { useState, useEffect } from "react";
 
 const ModalDynamic = ({ show, onHide, id }) => {
+  const { data: glob, setData: setGlob } = useData();
   //chunk of global data object
-  const dataChunk = signalData.value[id].values;
-  const [firstPlaceholder, secondPlaceholder] =
-    signalData.value[id].placeholders;
+  const dataChunk = glob[id].values;
+  const [firstPlaceholder, secondPlaceholder] = glob[id].placeholders;
 
   const [data, setData] = useState([...dataChunk]);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -35,7 +35,8 @@ const ModalDynamic = ({ show, onHide, id }) => {
   };
 
   const handleSave = () => {
-    signalData.value[id].values = data;
+    setGlob((prev) => ({ ...prev, [id]: { ...[id], values: data } }));
+    // signalData.value[id].values = data;
   };
 
   return (

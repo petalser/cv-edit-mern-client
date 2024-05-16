@@ -1,5 +1,5 @@
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
-import { useData } from "../signals/data";
+import { useData } from "../hooks/useDataSignal";
 import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { Button, ButtonGroup } from "react-bootstrap";

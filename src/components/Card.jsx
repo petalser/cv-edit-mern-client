@@ -1,4 +1,4 @@
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 const CardComponent = ({ content, handleClick }) => {
   const handleClickWrapper = (e) => {

@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import { useData } from "../signals/data";
+import { useData } from "../hooks/useDataSignal";
 import html2pdf from "html2pdf.js";
 import { isExported } from "../signals/states";
 
