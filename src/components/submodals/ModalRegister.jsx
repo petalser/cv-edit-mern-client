@@ -25,11 +25,13 @@ const ModalRegister = ({ show, onHide }) => {
       setErrMsg((prev) => ({
         ...prev,
         email: "Invalid email",
+        response: "",
       }));
     } else {
       setErrMsg((prev) => ({
         ...prev,
         email: "",
+        response: "",
       }));
     }
   }, [email]);
@@ -82,9 +84,11 @@ const ModalRegister = ({ show, onHide }) => {
         password,
       });
       setTokenSignal(response.data.accessToken);
+      setErrMsg((prev) => ({ ...prev, response: "" }));
       onHide();
     } catch (err) {
-      setErrMsg(err.response?.data.message);
+      console.log(err.response.data.message, "ERR");
+      setErrMsg((prev) => ({ ...prev, response: err.response.data.message }));
     }
   };
 
@@ -95,11 +99,12 @@ const ModalRegister = ({ show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Log In</Modal.Title>
+        <Modal.Title>Registration</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <div className="row">
+          <p>{errMsg.response}</p>
           <form className="col">
             <label
               htmlFor="email"
