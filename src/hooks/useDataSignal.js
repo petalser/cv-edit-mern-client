@@ -10,9 +10,15 @@ export const useData = () => {
     signalData.value = argument;
   };
 
+  const setDataChunk = (key, val) => {
+    const copy = { ...signalData.value };
+    copy[key].value = val;
+    setData(copy);
+  };
+
   const resetData = () => {
     signalData.value = defaultData;
   };
 
-  return { data, setData, resetData };
+  return { data, setData, setDataChunk, resetData };
 };
