@@ -8,7 +8,7 @@ import {
 } from "./signals/states";
 import Tooltip from "./components/Tooltip";
 import Card from "./components/Card";
-import { showInput } from "./utils/showInput";
+import InputableElement from "./components/InputableElement";
 import { useSignals } from "@preact/signals-react/runtime";
 import { effect } from "@preact/signals-react";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
@@ -83,68 +83,36 @@ function App() {
       <main id="pageContent" className={`container`}>
         <header className="row">
           <div className="col-md-7 text-start">
-            <h1 id="name" className="hoverFX" onClick={showInput}>
-              {/* First and last name */}
-              {data.name.value}
-            </h1>
+            <InputableElement field="name" as="h1" />
 
-            <h2 id="role" className="hoverFX" onClick={showInput}>
-              {/* Role */}
-              {data.role.value}
-            </h2>
+            <InputableElement field="role" as="h2" />
 
-            <p id="education" className="hoverFX boldText" onClick={showInput}>
-              {/* Education */}
-              {data.education.value}
-            </p>
+            <InputableElement field="education" as="p" classes="boldText" />
           </div>
 
           <div className="col-md-5 text-end">
-            <span id="contactLink_1" className="hoverFX" onClick={showInput}>
-              {/* Contacts[] */}
-              {data.contactLink_1.value}
-            </span>
+            <InputableElement field="contactLink_1" as="span" />
             <br />
-
-            <span id="contactLink_2" className="hoverFX" onClick={showInput}>
-              {/* Contacts[] */}
-              {data.contactLink_2.value}
-            </span>
+            <InputableElement field="contactLink_2" as="span" />
             <br />
-
-            <span id="contactLink_3" className="hoverFX" onClick={showInput}>
-              {/* Contacts[] */}
-              {data.contactLink_3.value}
-            </span>
+            <InputableElement field="contactLink_3" as="span" />
           </div>
         </header>
 
         <section className="row m-auto">
-          <h3
-            id="summaryTitle"
-            className="text-center hoverFX"
-            onClick={showInput}
-          >
-            {/* Summary title */}
-            {data.summaryTitle.value}
-          </h3>
+          <InputableElement
+            field="summaryTitle"
+            as="h3"
+            classes="text-center"
+          />
 
-          <p
-            id="summaryText"
-            className="text-center hoverFX"
-            onClick={showInput}
-          >
-            {/* Summary itself */}
-            {data.summaryText.value}
-          </p>
+          <InputableElement field="summaryText" as="p" classes="text-center" />
         </section>
 
         <section className="row">
           <div className="col-md-7">
-            <h3 id="stackTitle" className=" hoverFX" onClick={showInput}>
-              {/* Title for stack section */}
-              {data.stackTitle.value}
-            </h3>
+            <InputableElement field="stackTitle" as="h3" />
+
             <div
               className="hoverFX"
               onClick={() => handleShowCard("stackList", "dynamic")}
@@ -164,10 +132,8 @@ function App() {
           </div>
 
           <div className="col-md-5 text-end">
-            <h3 id="langTitle" className=" hoverFX" onClick={showInput}>
-              {/* Title for languages section */}
-              {data.langTitle.value}
-            </h3>
+            <InputableElement field="langTitle" as="h3" />
+
             <div
               className="hoverFX"
               onClick={() => handleShowCard("langList", "dynamic")}
@@ -190,23 +156,11 @@ function App() {
         <section>
           <div className="row">
             <div className="col-md-12 text-center">
-              <h3
-                id="projectsSectionTitle"
-                className="hoverFX"
-                onClick={showInput}
-              >
-                {/* Title for projects section */}
-                {data.projectsSectionTitle.value}
-              </h3>
+              <InputableElement field="projectsSectionTitle" as="h3" />
+
               {/* Projects section summary (if provided) */}
               {data.projectsSectionSummary.value && (
-                <span
-                  id="projectsSectionSummary"
-                  className="hoverFX"
-                  onClick={showInput}
-                >
-                  {data.projectsSectionSummary.value}
-                </span>
+                <InputableElement field="projectsSectionSummary" as="span" />
               )}
             </div>
           </div>
@@ -233,14 +187,20 @@ function App() {
         <section>
           <div className="row d-flex flex-row">
             {/* Title for experience section */}
-            <h3 className="text-center hoverFX" onClick={showInput}>
-              {data.experienceTitle.value}
-            </h3>
+
+            <InputableElement
+              field="experienceTitle"
+              as="h3"
+              classes="text-center"
+            />
+
             {/* Summary for experience section (if provided) */}
             {data.experienceSubtitle.value && (
-              <p className="hoverFX text-center">
-                {data.experienceSubtitle.value}
-              </p>
+              <InputableElement
+                field="experienceSubtitle"
+                as="p"
+                classes="text-center"
+              />
             )}
             <Card
               content={data.experiencePeriodLatest}
