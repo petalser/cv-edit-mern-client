@@ -1,12 +1,11 @@
 import { Modal, Button } from "react-bootstrap";
-import { useData } from "../../hooks/useDataSignal";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { patchGlobalData } from "../../features/globalData/globalDataSlice";
 
 const ModalStatic = ({ show, onHide, id }) => {
-  const { data, setData } = useData();
-  //chunk of global data object
-  const dataChunk = data[id];
-
+  const dispatch = useDispatch();
+  const dataChunk = useSelector((state) => state.globalData[id]);
   const [localData, setLocalData] = useState({ ...dataChunk });
   const [blocked, setBlocked] = useState(false);
 
@@ -23,6 +22,11 @@ const ModalStatic = ({ show, onHide, id }) => {
       ...prev,
       [key]: { ...prev[key], value: e.target.value },
     }));
+  };
+
+  const handleSave = () => {
+    dispatch(patchGlobalData({ id, data: localData }));
+    onHide();
   };
 
   return (
@@ -58,14 +62,7 @@ const ModalStatic = ({ show, onHide, id }) => {
         <Button variant="secondary" onClick={onHide}>
           Cancel
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => {
-            setData({ ...data, [id]: localData });
-            onHide();
-          }}
-          disabled={blocked}
-        >
+        <Button variant="primary" onClick={handleSave} disabled={blocked}>
           Save Changes
         </Button>
       </Modal.Footer>

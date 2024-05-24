@@ -1,8 +1,8 @@
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { useState } from "react";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
-import { useData } from "../hooks/useDataSignal";
-import { useUserDataSignal } from "../hooks/useUserDataSignal";
+import { useSelector } from "react-redux";
+import { useUserDataSignal, userData } from "../hooks/useUserDataSignal";
 import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
 import { CaretDown, CaretUp, CaretRight } from "react-bootstrap-icons";
 import { isPanelEnabled } from "../signals/states";
@@ -10,7 +10,7 @@ import { isPanelEnabled } from "../signals/states";
 export const SaveButton = () => {
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState("");
-  const { data } = useData();
+  const data = useSelector((state) => state.globalData);
   const { userDataSignal, setUserDataSignal } = useUserDataSignal();
   const { setCurrentEntry } = useCurrentEntrySignal();
   const privateAxios = usePrivateAxios();
@@ -47,8 +47,14 @@ export const SaveButton = () => {
         value: data,
       };
       const response = await privateAxios.put("/entries/", payload);
+      if (response.status) {
+        const updated = response.data.updatedEntry;
+        const filtered = userDataSignal.filter((item) => item._id !== _id);
+        setUserDataSignal([updated, ...filtered]);
+        setCurrentEntry(updated._id.toString());
+      }
+
       isPanelEnabled.value = false;
-      console.log("UPDATE SUCCESSFUL", payload);
     } catch (err) {
       console.log("Update failed:", err);
     }

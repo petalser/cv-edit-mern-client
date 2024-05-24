@@ -1,10 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
+import { setGlobalData } from "./features/globalData/globalDataSlice";
+import {
+  connected,
+  disconnected,
+} from "./features/networkBool/networkBoolSlice";
 import {
   isPanelEnabled,
   isPanelHovered,
   isTooltipEnabled,
   isExported,
   modalType,
-  networkSignal,
 } from "./signals/states";
 import Tooltip from "./components/Tooltip";
 import Card from "./components/Card";
@@ -12,7 +17,6 @@ import InputableElement from "./components/InputableElement";
 import { useSignals } from "@preact/signals-react/runtime";
 import { effect } from "@preact/signals-react";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
-import { useData } from "./hooks/useDataSignal";
 import { useUserDataSignal } from "./hooks/useUserDataSignal";
 import { Suspense, lazy, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,19 +31,21 @@ function App() {
   const [targetID, setTargetID] = useState(null);
 
   const privateAxios = usePrivateAxios();
-  const { data, setData } = useData();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.globalData);
+
   const { setUserDataSignal } = useUserDataSignal();
 
   useEffect(() => {
     const fetchEntries = async () => {
       try {
         const response = await privateAxios.get("/entries"); //list of entries (_id, userID, name, value)
-        setData(response.data[0].value);
+        dispatch(setGlobalData(response.data[0].value));
         setUserDataSignal(response.data);
-        networkSignal.value = true;
+        dispatch(connected());
         console.log("Fetched successfully");
       } catch (err) {
-        networkSignal.value = err.response ? true : false;
+        err.response ? dispatch(connected()) : dispatch(disconnected());
         const log = err.response ? err.response.data.message : err.message;
         console.log("Fetching error:", log);
       }

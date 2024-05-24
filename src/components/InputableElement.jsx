@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect, createElement } from "react";
-import { useData } from "../hooks/useDataSignal";
+import { useSelector, useDispatch } from "react-redux";
+import { patchGlobalData } from "../features/globalData/globalDataSlice";
 
 const InputableElement = ({ as, field, classes = "" }) => {
-  const { data, setDataChunk } = useData();
+  const dispatch = useDispatch();
+
+  const data = useSelector((state) => state.globalData);
 
   const [inputBool, setinputBool] = useState(false);
   const [inputValue, setInputValue] = useState(data[field].value);
@@ -20,7 +23,12 @@ const InputableElement = ({ as, field, classes = "" }) => {
 
   const handleBlur = () => {
     setinputBool(false);
-    setDataChunk(field, inputValue);
+    // setDataChunk(field, inputValue);
+    const payload = {
+      id: field,
+      data: { ...data[field], value: inputValue },
+    };
+    dispatch(patchGlobalData(payload));
   };
 
   useEffect(() => {

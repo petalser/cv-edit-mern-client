@@ -1,13 +1,16 @@
 import { Modal, Button } from "react-bootstrap";
 import { Trash } from "react-bootstrap-icons";
-import { useData } from "../../hooks/useDataSignal";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { patchGlobalData } from "../../features/globalData/globalDataSlice";
 
 const ModalDynamic = ({ show, onHide, id }) => {
-  const { data: glob, setData: setGlob } = useData();
+  const dispatch = useDispatch();
+  const glob = useSelector((state) => state.globalData[id]);
+
   //chunk of global data object
-  const dataChunk = glob[id].values;
-  const [firstPlaceholder, secondPlaceholder] = glob[id].placeholders;
+  const dataChunk = glob.values;
+  const [firstPlaceholder, secondPlaceholder] = glob.placeholders;
 
   const [data, setData] = useState([...dataChunk]);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -29,14 +32,14 @@ const ModalDynamic = ({ show, onHide, id }) => {
   };
 
   const handleChange = (indexOne, indexTwo, value) => {
-    const updatedValue = [...data];
+    const updatedValue = data.map((arr) => [...arr]);
+    console.log(updatedValue[indexOne][indexTwo]);
     updatedValue[indexOne][indexTwo] = value;
     setData(updatedValue);
   };
 
   const handleSave = () => {
-    setGlob((prev) => ({ ...prev, [id]: { ...[id], values: data } }));
-    // signalData.value[id].values = data;
+    dispatch(patchGlobalData({ id, data }));
   };
 
   return (

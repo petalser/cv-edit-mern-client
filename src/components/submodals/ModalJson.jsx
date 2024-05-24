@@ -1,16 +1,20 @@
 import { Modal, Button, Form } from "react-bootstrap";
-import { useData } from "../../hooks/useDataSignal";
+import { useSelector, useDispatch } from "react-redux";
+import { setGlobalData } from "../../features/globalData/globalDataSlice";
+
 import { useRef } from "react";
 
-const ModalJson = ({ show, onHide, id }) => {
+const ModalJson = ({ show, onHide }) => {
+  const dispatch = useDispatch();
+
   //global data object
-  const { data: json, setData } = useData();
+  const json = useSelector((state) => state.globalData);
 
   const area = useRef(null);
 
   const handleSave = () => {
     const content = JSON.parse(area.current.value);
-    setData(content);
+    dispatch(setGlobalData(content));
     onHide();
   };
 

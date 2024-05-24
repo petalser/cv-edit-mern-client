@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
-import { useData } from "../hooks/useDataSignal";
+import { useSelector } from "react-redux";
 import html2pdf from "html2pdf.js";
 import { isExported } from "../signals/states";
 
 const Save2PDFButton = () => {
-  const { data } = useData();
+  const data = useSelector((state) => state.globalData);
   const user = data.name.value;
   const name = user.split(" ").join("_");
   const handleSave = () => {

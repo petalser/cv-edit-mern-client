@@ -1,19 +1,23 @@
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
-import { useData } from "../hooks/useDataSignal";
+import { useDispatch } from "react-redux";
+import {
+  setGlobalData,
+  resetGlobalData,
+} from "../features/globalData/globalDataSlice";
 import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { TrashFill } from "react-bootstrap-icons";
 
 const Entries = () => {
+  const dispatch = useDispatch();
   const { userDataSignal, setUserDataSignal } = useUserDataSignal();
-  const { setData, resetData } = useData();
   const { currentEntry, setCurrentEntry } = useCurrentEntrySignal();
   const privateAxios = usePrivateAxios();
 
   const handleClick = (id) => {
     const clickedEntry = userDataSignal.find((item) => item._id === id);
-    setData(clickedEntry.value);
+    dispatch(setGlobalData(clickedEntry.value));
     currentEntry !== id && setCurrentEntry(id);
   };
 
@@ -22,21 +26,17 @@ const Entries = () => {
       const response = await privateAxios.delete("/entries/", {
         data: { entryID },
       });
-      if (response.status === 200) {
-        const filtered = userDataSignal.filter((item) => item._id !== entryID);
-        filtered.map((item) => {
-          console.log(item._id, "ID");
-        });
 
-        if (filtered.length) {
-          setUserDataSignal(filtered);
-          setData(filtered[0].value);
-          setCurrentEntry(filtered[0]._id);
-        } else {
-          resetData();
-          setUserDataSignal([]);
-          setCurrentEntry(null);
-        }
+      const filtered = userDataSignal.filter((item) => item._id !== entryID);
+
+      if (filtered.length) {
+        setUserDataSignal(filtered);
+        dispatch(setGlobalData(filtered[0].value));
+        setCurrentEntry(filtered[0]._id);
+      } else {
+        dispatch(resetGlobalData());
+        setUserDataSignal([]);
+        setCurrentEntry(null);
       }
     } catch (err) {
       console.log("Deletion failed:", err);
