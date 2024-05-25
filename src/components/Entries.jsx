@@ -1,21 +1,21 @@
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setGlobalData, resetGlobalData } from "../features/globalDataSlice";
-import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
+import { setEntryID } from "../features/uiSlice";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { TrashFill } from "react-bootstrap-icons";
 
 const Entries = () => {
   const dispatch = useDispatch();
+  const { currentEntry } = useSelector((state) => state.ui);
   const { userDataSignal, setUserDataSignal } = useUserDataSignal();
-  const { currentEntry, setCurrentEntry } = useCurrentEntrySignal();
   const privateAxios = usePrivateAxios();
 
   const handleClick = (id) => {
     const clickedEntry = userDataSignal.find((item) => item._id === id);
     dispatch(setGlobalData(clickedEntry.value));
-    currentEntry !== id && setCurrentEntry(id);
+    currentEntry !== id && dispatch(setEntryID(id));
   };
 
   const handleDelete = async (e, entryID) => {
@@ -29,11 +29,11 @@ const Entries = () => {
       if (filtered.length) {
         setUserDataSignal(filtered);
         dispatch(setGlobalData(filtered[0].value));
-        setCurrentEntry(filtered[0]._id);
+        dispatch(setEntryID(filtered[0]._id));
       } else {
         dispatch(resetGlobalData());
         setUserDataSignal([]);
-        setCurrentEntry(null);
+        dispatch(setEntryID(null));
       }
     } catch (err) {
       console.log("Deletion failed:", err);

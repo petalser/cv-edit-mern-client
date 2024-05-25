@@ -1,7 +1,9 @@
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { privateAxios } from "../../api/axios";
-import { useTokenSignal } from "../../hooks/useTokenSignal";
+import { setToken } from "../../features/authSlice";
+import { setModalType } from "../../features/uiSlice";
 import { useUserDataSignal } from "../../hooks/useUserDataSignal";
 
 const ModalLogin = ({ show, onHide }) => {
@@ -9,8 +11,9 @@ const ModalLogin = ({ show, onHide }) => {
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
-  const { setTokenSignal } = useTokenSignal();
   const { setUserDataSignal } = useUserDataSignal();
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +23,7 @@ const ModalLogin = ({ show, onHide }) => {
         password,
       });
       setUserDataSignal(response.data.entries);
-      setTokenSignal(response.data.accessToken);
+      dispatch(setToken(response.data.accessToken));
       onHide();
     } catch (err) {
       setErrMsg(err.message, "err res");
@@ -28,7 +31,8 @@ const ModalLogin = ({ show, onHide }) => {
   };
 
   const handleProceedToRegister = () => {
-    alert("GOOOO");
+    onHide();
+    dispatch(setModalType("register"));
   };
 
   return (

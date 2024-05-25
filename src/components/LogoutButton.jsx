@@ -1,9 +1,10 @@
 import { Button } from "react-bootstrap";
 import axios from "../api/axios";
-import { useTokenSignal } from "../hooks/useTokenSignal";
+import { useDispatch } from "react-redux";
+import { clearToken } from "../features/authSlice";
 
 const Logout = () => {
-  const { setTokenSignal } = useTokenSignal();
+  const dispatch = useDispatch();
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -15,11 +16,10 @@ const Logout = () => {
           withCredentials: true,
         }
       );
-      console.log("Logged out");
     } catch (err) {
       console.log("Logging out error:", err);
     } finally {
-      setTokenSignal(null);
+      dispatch(clearToken());
     }
   };
 

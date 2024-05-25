@@ -1,8 +1,9 @@
 import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "../../api/axios";
-import { useTokenSignal } from "../../hooks/useTokenSignal";
-import { useModalType } from "../../hooks/useModalType";
+import { setModalType } from "../../features/uiSlice";
+import { setToken } from "../../features/authSlice";
 
 const ModalRegister = ({ show, onHide }) => {
   const [email, setEmail] = useState("");
@@ -15,8 +16,7 @@ const ModalRegister = ({ show, onHide }) => {
     check: "",
   });
 
-  const { setTokenSignal } = useTokenSignal();
-  const { setModalTypeSignal } = useModalType();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const MAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -83,7 +83,7 @@ const ModalRegister = ({ show, onHide }) => {
         email,
         password,
       });
-      setTokenSignal(response.data.accessToken);
+      dispatch(setToken(response.data.accessToken));
       setErrMsg((prev) => ({ ...prev, response: "" }));
       onHide();
     } catch (err) {
@@ -92,8 +92,8 @@ const ModalRegister = ({ show, onHide }) => {
     }
   };
 
-  const handleClick = () => {
-    setModalTypeSignal("login");
+  const navigateToLogIn = () => {
+    dispatch(setModalType("login"));
   };
 
   return (
@@ -184,7 +184,11 @@ const ModalRegister = ({ show, onHide }) => {
           Cancel
         </Button>
 
-        <Button className="m-1 w-25" variant="primary" onClick={handleClick}>
+        <Button
+          className="m-1 w-25"
+          variant="primary"
+          onClick={navigateToLogIn}
+        >
           Log In
         </Button>
       </Modal.Footer>

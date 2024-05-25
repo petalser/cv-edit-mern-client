@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setGlobalData } from "./features/globalDataSlice";
 import { connected, disconnected } from "./features/networkBoolSlice";
-import { enablePanel, disablePanel } from "./features/uiSlice";
-import { isExported, modalType } from "./signals/states";
+import { enablePanel, disablePanel, setModalType } from "./features/uiSlice";
 import Tooltip from "./components/Tooltip";
 import Card from "./components/Card";
 import InputableElement from "./components/InputableElement";
@@ -24,9 +23,8 @@ function App() {
   const privateAxios = usePrivateAxios();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.globalData);
-  const { isTooltipEnabled, isPanelEnabled, isPanelHovered } = useSelector(
-    (state) => state.ui
-  );
+  const { isTooltipEnabled, isPanelEnabled, isPanelHovered, modalType } =
+    useSelector((state) => state.ui);
 
   const { setUserDataSignal } = useUserDataSignal();
 
@@ -48,7 +46,7 @@ function App() {
 
   // triggers Panel
   useEffect(() => {
-    if (modalType.value === "blank") {
+    if (modalType === "blank") {
       const panelTrigger = (event) => {
         if (event.clientX < 30 || isPanelHovered) {
           dispatch(enablePanel());
@@ -61,22 +59,26 @@ function App() {
         window.removeEventListener("mousemove", panelTrigger);
       };
     }
-  }, [dispatch, isPanelEnabled, isPanelHovered]);
+  }, [dispatch, isPanelEnabled, isPanelHovered, modalType]);
 
   const handleShowCard = (id, type) => {
     setTargetID(id);
-    modalType.value = type;
+    dispatch(setModalType(type));
+  };
+
+  const modalOnHide = () => {
+    dispatch(setModalType("blank"));
   };
 
   return (
     <>
       <Suspense fallback={<></>}>
-        {modalType.value !== "blank" && (
+        {modalType !== "blank" && (
           <Modal
-            show={modalType.value !== "blank"}
-            onHide={() => (modalType.value = "blank")}
+            show={modalType !== "blank"}
+            onHide={modalOnHide}
             id={targetID}
-            modalType={modalType.value}
+            modalType={modalType}
           />
         )}
 
@@ -173,17 +175,14 @@ function App() {
           <div className="row d-flex flex-row">
             <Card
               content={data.project_1}
-              isExported={isExported.value}
               handleClick={() => handleShowCard("project_1", "static")}
             />
             <Card
               content={data.project_2}
-              isExported={isExported.value}
               handleClick={() => handleShowCard("project_2", "static")}
             />
             <Card
               content={data.project_3}
-              isExported={isExported.value}
               handleClick={() => handleShowCard("project_3", "static")}
             />
           </div>
@@ -208,14 +207,12 @@ function App() {
             )}
             <Card
               content={data.experiencePeriodLatest}
-              isExported={isExported.value}
               handleClick={() =>
                 handleShowCard("experiencePeriodLatest", "static")
               }
             />
             <Card
               content={data.experiencePeriodPrevious}
-              isExported={isExported.value}
               handleClick={() =>
                 handleShowCard("experiencePeriodPrevious", "static")
               }

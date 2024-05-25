@@ -1,23 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Button, ButtonGroup } from "react-bootstrap";
 import Save2PDFButton from "./Save2PDFButton";
-import { SaveButton } from "./SaveButton";
+import SaveButton from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
-import { isPanelHovered, modalType } from "../signals/states";
-import { useTokenSignal } from "../hooks/useTokenSignal";
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
-import { toggleButtonGroupHover } from "../features/uiSlice";
+import { toggleButtonGroupHover, setModalType } from "../features/uiSlice";
 
 const Panel = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.globalData);
-  const { tokenSignal } = useTokenSignal();
+  const token = useSelector((state) => state.auth);
+  const networkBool = useSelector((state) => state.networkBool.connected);
   const { userDataSignal } = useUserDataSignal();
 
-  const networkBool = useSelector((state) => state.networkBool.connected);
-
-  const handleHover = (bool) => {
+  const handleHoverStatusChange = () => {
     dispatch(toggleButtonGroupHover());
   };
 
@@ -29,15 +26,15 @@ const Panel = () => {
   };
 
   const handleModalTypeChange = (str = "json") => {
-    modalType.value = str;
+    dispatch(setModalType(str));
   };
 
   return (
     <ButtonGroup
       style={{ zIndex: 1100, width: "10rem" }}
       className="list-group position-fixed bg-black bg-opacity-25"
-      onMouseEnter={() => handleHover(true)}
-      onMouseLeave={() => handleHover(false)}
+      onMouseEnter={() => handleHoverStatusChange()}
+      onMouseLeave={() => handleHoverStatusChange()}
       vertical
     >
       <Save2PDFButton />
@@ -55,7 +52,7 @@ const Panel = () => {
 
           <div className="border border-secondary w-100 my-1"></div>
 
-          {tokenSignal ? (
+          {token ? (
             <Logout />
           ) : (
             <>

@@ -1,19 +1,18 @@
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { useState } from "react";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
-import { useSelector } from "react-redux";
-import { useUserDataSignal, userData } from "../hooks/useUserDataSignal";
-import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
+import { useSelector, useDispatch } from "react-redux";
+import { setEntryID, disablePanel } from "../features/uiSlice";
+import { useUserDataSignal } from "../hooks/useUserDataSignal";
 import { CaretDown, CaretUp, CaretRight } from "react-bootstrap-icons";
-import { isPanelEnabled } from "../signals/states";
 
-export const SaveButton = () => {
+const SaveButton = () => {
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState("");
   const data = useSelector((state) => state.globalData);
   const { userDataSignal, setUserDataSignal } = useUserDataSignal();
-  const { setCurrentEntry } = useCurrentEntrySignal();
   const privateAxios = usePrivateAxios();
+  const dispatch = useDispatch();
 
   const showForm = () => {
     setToggleForm((prev) => !prev);
@@ -31,7 +30,7 @@ export const SaveButton = () => {
       };
       const response = await privateAxios.post("/entries", payload); //{entryID: ID of created entry, entries: all entries of current user}
       setUserDataSignal(response.data.entries);
-      setCurrentEntry(response.data.entryID);
+      dispatch(setEntryID(response.data.entryID));
     } catch (err) {
       console.log(err.response.data.message || err.message, "err submit");
     } finally {
@@ -51,10 +50,9 @@ export const SaveButton = () => {
         const updated = response.data.updatedEntry;
         const filtered = userDataSignal.filter((item) => item._id !== _id);
         setUserDataSignal([updated, ...filtered]);
-        setCurrentEntry(updated._id.toString());
+        dispatch(setEntryID(updated._id.toString()));
       }
-
-      isPanelEnabled.value = false;
+      dispatch(disablePanel());
     } catch (err) {
       console.log("Update failed:", err);
     }
@@ -114,3 +112,4 @@ export const SaveButton = () => {
     </ButtonGroup>
   );
 };
+export default SaveButton;

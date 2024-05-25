@@ -1,9 +1,21 @@
 import { createSlice, createListenerMiddleware } from "@reduxjs/toolkit";
 
+const allowedModalTypes = [
+  "blank",
+  "json",
+  "static",
+  "dynamic",
+  "login",
+  "register",
+];
+
 const initialState = {
   isPanelEnabled: false,
   isPanelHovered: false,
   isTooltipEnabled: true,
+  isExported: false,
+  modalType: "blank",
+  currentEntry: null,
 };
 
 const uiSlice = createSlice({
@@ -22,11 +34,24 @@ const uiSlice = createSlice({
     disablePanel: (state) => {
       state.isPanelEnabled = false;
     },
+    setModalType: (state, action) => {
+      // if (allowedModalTypes.includes{action.payload}) {}
+      state.modalType = action.payload || "blank";
+    },
+    setEntryID: (state, action) => {
+      state.currentEntryID = action.payload;
+    },
+    //isExported
   },
 });
 
-export const { toggleButtonGroupHover, enablePanel, disablePanel } =
-  uiSlice.actions;
+export const {
+  toggleButtonGroupHover,
+  enablePanel,
+  disablePanel,
+  setModalType,
+  setEntryID,
+} = uiSlice.actions;
 
 export const listener = createListenerMiddleware();
 
