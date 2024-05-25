@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, createElement } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { patchGlobalData } from "../features/globalData/globalDataSlice";
+import { patchGlobalData } from "../features/globalDataSlice";
 
 const InputableElement = ({ as, field, classes = "" }) => {
   const dispatch = useDispatch();

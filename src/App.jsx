@@ -1,21 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setGlobalData } from "./features/globalData/globalDataSlice";
-import {
-  connected,
-  disconnected,
-} from "./features/networkBool/networkBoolSlice";
-import {
-  isPanelEnabled,
-  isPanelHovered,
-  isTooltipEnabled,
-  isExported,
-  modalType,
-} from "./signals/states";
+import { setGlobalData } from "./features/globalDataSlice";
+import { connected, disconnected } from "./features/networkBoolSlice";
+import { enablePanel, disablePanel } from "./features/uiSlice";
+import { isExported, modalType } from "./signals/states";
 import Tooltip from "./components/Tooltip";
 import Card from "./components/Card";
 import InputableElement from "./components/InputableElement";
 import { useSignals } from "@preact/signals-react/runtime";
-import { effect } from "@preact/signals-react";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
 import { useUserDataSignal } from "./hooks/useUserDataSignal";
 import { Suspense, lazy, useState, useEffect } from "react";
@@ -33,6 +24,9 @@ function App() {
   const privateAxios = usePrivateAxios();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.globalData);
+  const { isTooltipEnabled, isPanelEnabled, isPanelHovered } = useSelector(
+    (state) => state.ui
+  );
 
   const { setUserDataSignal } = useUserDataSignal();
 
@@ -43,7 +37,6 @@ function App() {
         dispatch(setGlobalData(response.data[0].value));
         setUserDataSignal(response.data);
         dispatch(connected());
-        console.log("Fetched successfully");
       } catch (err) {
         err.response ? dispatch(connected()) : dispatch(disconnected());
         const log = err.response ? err.response.data.message : err.message;
@@ -53,18 +46,22 @@ function App() {
     fetchEntries();
   }, []);
 
-  //triggers Panel
-  effect(() => {
+  // triggers Panel
+  useEffect(() => {
     if (modalType.value === "blank") {
       const panelTrigger = (event) => {
-        isPanelEnabled.value = event.clientX < 30 || isPanelHovered.value;
+        if (event.clientX < 30 || isPanelHovered) {
+          dispatch(enablePanel());
+        } else {
+          dispatch(disablePanel());
+        }
       };
       window.addEventListener("mousemove", panelTrigger);
       return () => {
         window.removeEventListener("mousemove", panelTrigger);
       };
     }
-  });
+  }, [dispatch, isPanelEnabled, isPanelHovered]);
 
   const handleShowCard = (id, type) => {
     setTargetID(id);
@@ -82,10 +79,11 @@ function App() {
             modalType={modalType.value}
           />
         )}
-        {isPanelEnabled.value && <Panel />}
+
+        {isPanelEnabled && <Panel />}
       </Suspense>
 
-      {isTooltipEnabled.value && <Tooltip />}
+      {isTooltipEnabled && <Tooltip />}
       <main id="pageContent" className={`container`}>
         <header className="row">
           <div className="col-md-7 text-start">

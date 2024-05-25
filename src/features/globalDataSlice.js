@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import defaultValues from "../../data/defaultValues.json";
-import emptyValues from "../../data/emptyValues.json";
+import defaultValues from "../data/defaultValues.json";
+import emptyValues from "../data/emptyValues.json";
 
 const initialState = defaultValues;
 

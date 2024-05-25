@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, ButtonGroup } from "react-bootstrap";
 import Save2PDFButton from "./Save2PDFButton";
 import { SaveButton } from "./SaveButton";
@@ -7,8 +7,10 @@ import Entries from "./Entries";
 import { isPanelHovered, modalType } from "../signals/states";
 import { useTokenSignal } from "../hooks/useTokenSignal";
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
+import { toggleButtonGroupHover } from "../features/uiSlice";
 
 const Panel = () => {
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.globalData);
   const { tokenSignal } = useTokenSignal();
   const { userDataSignal } = useUserDataSignal();
@@ -16,7 +18,7 @@ const Panel = () => {
   const networkBool = useSelector((state) => state.networkBool.connected);
 
   const handleHover = (bool) => {
-    isPanelHovered.value = bool;
+    dispatch(toggleButtonGroupHover());
   };
 
   const handleClipboardClick = (e) => {

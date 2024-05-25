@@ -1,9 +1,6 @@
 import { useUserDataSignal } from "../hooks/useUserDataSignal";
 import { useDispatch } from "react-redux";
-import {
-  setGlobalData,
-  resetGlobalData,
-} from "../features/globalData/globalDataSlice";
+import { setGlobalData, resetGlobalData } from "../features/globalDataSlice";
 import { useCurrentEntrySignal } from "../hooks/useCurrentEntrySignal";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { Button, ButtonGroup } from "react-bootstrap";
