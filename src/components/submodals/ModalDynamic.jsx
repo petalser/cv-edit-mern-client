@@ -2,7 +2,7 @@ import { Modal, Button } from "react-bootstrap";
 import { Trash } from "react-bootstrap-icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { patchGlobalData } from "../../features/globalData/globalDataSlice";
+import { patchGlobalData } from "../../features/globalDataSlice";
 
 const ModalDynamic = ({ show, onHide, id }) => {
   const dispatch = useDispatch();

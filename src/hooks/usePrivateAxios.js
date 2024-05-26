@@ -1,10 +1,12 @@
 import { privateAxios } from "../api/axios";
 import { useEffect, useRef } from "react";
-import { useTokenSignal } from "./useTokenSignal";
+import { useSelector, useDispatch } from "react-redux";
+import { setToken, clearToken } from "../features/authSlice";
 
 export const usePrivateAxios = () => {
-  const { tokenSignal, setTokenSignal } = useTokenSignal();
+  const tokenSignal = useSelector((state) => state.auth);
   const isRefresh = useRef(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const reqInterceptor = privateAxios.interceptors.request.use(
@@ -28,7 +30,7 @@ export const usePrivateAxios = () => {
             .get("/auth/refresh")
             .then((res) => res.data.accessToken);
           request.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          setTokenSignal(newAccessToken);
+          dispatch(setToken(newAccessToken));
           return privateAxios(request);
         }
         return Promise.reject(error);
@@ -39,7 +41,7 @@ export const usePrivateAxios = () => {
       privateAxios.interceptors.request.eject(reqInterceptor);
       privateAxios.interceptors.response.eject(resInterceptor);
     };
-  }, [tokenSignal, setTokenSignal]);
+  }, [tokenSignal, dispatch]);
 
   return privateAxios;
 };
