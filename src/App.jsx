@@ -2,12 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setGlobalData } from "./features/globalDataSlice";
 import { connected, disconnected } from "./features/networkBoolSlice";
 import { enablePanel, disablePanel, setModalType } from "./features/uiSlice";
+import { setUserData } from "./features/userDataSlice";
 import Tooltip from "./components/Tooltip";
 import Card from "./components/Card";
 import InputableElement from "./components/InputableElement";
-import { useSignals } from "@preact/signals-react/runtime";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
-import { useUserDataSignal } from "./hooks/useUserDataSignal";
 import { Suspense, lazy, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
@@ -16,24 +15,21 @@ const Panel = lazy(() => import("./components/Panel"));
 const Modal = lazy(() => import("./components/Modal"));
 
 function App() {
-  useSignals();
-
   const [targetID, setTargetID] = useState(null);
 
   const privateAxios = usePrivateAxios();
-  const dispatch = useDispatch();
+
   const data = useSelector((state) => state.globalData);
   const { isTooltipEnabled, isPanelEnabled, isPanelHovered, modalType } =
     useSelector((state) => state.ui);
-
-  const { setUserDataSignal } = useUserDataSignal();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchEntries = async () => {
       try {
         const response = await privateAxios.get("/entries"); //list of entries (_id, userID, name, value)
         dispatch(setGlobalData(response.data[0].value));
-        setUserDataSignal(response.data);
+        dispatch(setUserData(response.data));
         dispatch(connected());
       } catch (err) {
         err.response ? dispatch(connected()) : dispatch(disconnected());

@@ -3,14 +3,14 @@ import { useState } from "react";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { useSelector, useDispatch } from "react-redux";
 import { setEntryID, disablePanel } from "../features/uiSlice";
-import { useUserDataSignal } from "../hooks/useUserDataSignal";
+import { setUserData } from "../features/userDataSlice";
 import { CaretDown, CaretUp, CaretRight } from "react-bootstrap-icons";
 
 const SaveButton = () => {
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState("");
   const data = useSelector((state) => state.globalData);
-  const { userDataSignal, setUserDataSignal } = useUserDataSignal();
+  const userData = useSelector((state) => state.userData);
   const privateAxios = usePrivateAxios();
   const dispatch = useDispatch();
 
@@ -29,10 +29,13 @@ const SaveButton = () => {
         value: data,
       };
       const response = await privateAxios.post("/entries", payload); //{entryID: ID of created entry, entries: all entries of current user}
-      setUserDataSignal(response.data.entries);
+      dispatch(setUserData(response.data.entries));
       dispatch(setEntryID(response.data.entryID));
     } catch (err) {
-      console.log(err.response.data.message || err.message, "err submit");
+      console.log(
+        "Submission failed:",
+        err.response.data.message || err.message
+      );
     } finally {
       setToggleForm(false);
     }
@@ -49,7 +52,7 @@ const SaveButton = () => {
       if (response.status) {
         const updated = response.data.updatedEntry;
         const filtered = userDataSignal.filter((item) => item._id !== _id);
-        setUserDataSignal([updated, ...filtered]);
+        dispatch(setUserData([updated, ...filtered]));
         dispatch(setEntryID(updated._id.toString()));
       }
       dispatch(disablePanel());
@@ -92,10 +95,10 @@ const SaveButton = () => {
               </Button>
             </Form.Group>
           </Form>
-          {userDataSignal.length > 0 && (
+          {userData.length && (
             <>
               <span>or update one of existing entries:</span>
-              {userDataSignal.map((item, index) => (
+              {userData.map((item, index) => (
                 <Button
                   variant="secondary"
                   className="border border-light"

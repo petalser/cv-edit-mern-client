@@ -1,6 +1,6 @@
-import { useUserDataSignal } from "../hooks/useUserDataSignal";
 import { useSelector, useDispatch } from "react-redux";
 import { setGlobalData, resetGlobalData } from "../features/globalDataSlice";
+import { setUserData, clearUserData } from "../features/userDataSlice";
 import { setEntryID } from "../features/uiSlice";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { Button, ButtonGroup } from "react-bootstrap";
@@ -9,30 +9,30 @@ import { TrashFill } from "react-bootstrap-icons";
 const Entries = () => {
   const dispatch = useDispatch();
   const { currentEntry } = useSelector((state) => state.ui);
-  const { userDataSignal, setUserDataSignal } = useUserDataSignal();
+  const userData = useSelector((state) => state.userData);
   const privateAxios = usePrivateAxios();
 
   const handleClick = (id) => {
-    const clickedEntry = userDataSignal.find((item) => item._id === id);
+    const clickedEntry = userData.find((item) => item._id === id);
     dispatch(setGlobalData(clickedEntry.value));
     currentEntry !== id && dispatch(setEntryID(id));
   };
 
   const handleDelete = async (e, entryID) => {
     try {
-      const response = await privateAxios.delete("/entries/", {
+      await privateAxios.delete("/entries/", {
         data: { entryID },
       });
 
-      const filtered = userDataSignal.filter((item) => item._id !== entryID);
+      const filtered = userData.filter((item) => item._id !== entryID);
 
       if (filtered.length) {
-        setUserDataSignal(filtered);
+        dispatch(setUserData(filtered));
         dispatch(setGlobalData(filtered[0].value));
         dispatch(setEntryID(filtered[0]._id));
       } else {
         dispatch(resetGlobalData());
-        setUserDataSignal([]);
+        dispatch(clearUserData());
         dispatch(setEntryID(null));
       }
     } catch (err) {
@@ -47,8 +47,8 @@ const Entries = () => {
       vertical
     >
       <h2>Entries</h2>
-      {userDataSignal &&
-        userDataSignal.map((item, index) => (
+      {userData.length &&
+        userData.map((item, index) => (
           <li
             key={index}
             className="list-group-item w-100 p-0 d-flex bg-secondary "

@@ -4,15 +4,14 @@ import Save2PDFButton from "./Save2PDFButton";
 import SaveButton from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
-import { useUserDataSignal } from "../hooks/useUserDataSignal";
 import { toggleButtonGroupHover, setModalType } from "../features/uiSlice";
 
 const Panel = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.globalData);
+  const userData = useSelector((state) => state.userData);
   const token = useSelector((state) => state.auth);
   const networkBool = useSelector((state) => state.networkBool.connected);
-  const { userDataSignal } = useUserDataSignal();
 
   const handleHoverStatusChange = () => {
     dispatch(toggleButtonGroupHover());
@@ -72,7 +71,7 @@ const Panel = () => {
             </>
           )}
 
-          {userDataSignal.length ? <Entries /> : null}
+          {userData.length ? <Entries /> : null}
         </>
       )}
     </ButtonGroup>

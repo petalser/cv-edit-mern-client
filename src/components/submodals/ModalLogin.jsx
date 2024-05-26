@@ -3,15 +3,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { privateAxios } from "../../api/axios";
 import { setToken } from "../../features/authSlice";
+import { setUserData } from "../../features/userDataSlice";
 import { setModalType } from "../../features/uiSlice";
-import { useUserDataSignal } from "../../hooks/useUserDataSignal";
 
 const ModalLogin = ({ show, onHide }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-
-  const { setUserDataSignal } = useUserDataSignal();
 
   const dispatch = useDispatch();
 
@@ -22,7 +20,7 @@ const ModalLogin = ({ show, onHide }) => {
         email,
         password,
       });
-      setUserDataSignal(response.data.entries);
+      dispatch(setUserData(response.data.entries));
       dispatch(setToken(response.data.accessToken));
       onHide();
     } catch (err) {
