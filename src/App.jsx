@@ -5,6 +5,7 @@ import { enablePanel, disablePanel, setModalType } from "./features/uiSlice";
 import { setUserData } from "./features/userDataSlice";
 import Tooltip from "./components/Tooltip";
 import Card from "./components/Card";
+import { Spinner } from "react-bootstrap";
 import InputableElement from "./components/InputableElement";
 import { usePrivateAxios } from "./hooks/usePrivateAxios";
 import { Suspense, lazy, useState, useEffect } from "react";
@@ -68,7 +69,16 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<></>}>
+      <Suspense
+        fallback={
+          <Spinner
+            animation="grow"
+            variant="secondary"
+            style={{ width: "7rem", height: "7rem" }}
+            className="position-absolute top-50 start-50 translate-middle"
+          />
+        }
+      >
         {modalType !== "blank" && (
           <Modal
             show={modalType !== "blank"}
