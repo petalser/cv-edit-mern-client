@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import defaultValues from "../data/defaultValues.json";
-import emptyValues from "../data/emptyValues.json";
+import defaultValues from "../data/default.json";
+import emptyValues from "../data/empty.json";
 
 const initialState = defaultValues;
 
@@ -18,16 +18,10 @@ const globalDataSlice = createSlice({
     },
     setGlobalData: (state, action) => {
       state = action.payload;
-      return state;
     },
     patchGlobalData: (state, action) => {
       const { id, data } = action.payload;
-      if ("values" in state[id]) {
-        state[id].values = data;
-        return state;
-      }
       state[id] = data;
-      return state;
     },
   },
 });
