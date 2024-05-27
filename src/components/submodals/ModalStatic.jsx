@@ -2,6 +2,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { patchGlobalData } from "../../features/globalDataSlice";
+import placeholders from "../../data/placeholders.json";
 
 const ModalStatic = ({ show, onHide, id }) => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const ModalStatic = ({ show, onHide, id }) => {
   useEffect(() => {
     if (localData.link) {
       const PATTERN = /^(https):\/\/[^\s/$.?#].[^\s]*$/;
-      const isValidLink = PATTERN.test(localData.link.value);
+      const isValidLink = PATTERN.test(localData.link);
       setBlocked(!isValidLink);
     }
   }, [localData]);
@@ -20,7 +21,7 @@ const ModalStatic = ({ show, onHide, id }) => {
   const handleInputChange = (e, key) => {
     setLocalData((prev) => ({
       ...prev,
-      [key]: { ...prev[key], value: e.target.value },
+      [key]: e.target.value,
     }));
   };
 
@@ -43,14 +44,14 @@ const ModalStatic = ({ show, onHide, id }) => {
                   {key === "link" && blocked ? (
                     <span style={{ color: "red" }}>Invalid link</span>
                   ) : (
-                    localData[key].description
+                    placeholders[key]
                   )}
                 </label>
                 <input
                   type="text"
                   id={key}
                   className="form-control"
-                  value={localData[key].value}
+                  value={localData[key]}
                   onChange={(e) => handleInputChange(e, key)}
                 />
               </div>

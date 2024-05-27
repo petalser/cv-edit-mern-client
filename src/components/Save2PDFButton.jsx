@@ -4,7 +4,7 @@ import html2pdf from "html2pdf.js";
 
 const Save2PDFButton = () => {
   const data = useSelector((state) => state.globalData);
-  const user = data.name.value;
+  const user = data.name;
   const name = user.split(" ").join("_");
   const handleSave = () => {
     const content = document.getElementById("pageContent");

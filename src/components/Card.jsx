@@ -13,18 +13,16 @@ const CardComponent = ({ content, handleClick }) => {
     <Card className="col hoverFX m-1" onClick={(e) => handleClickWrapper(e)}>
       <Card.Body>
         <Card.Title>
-          {content.title ? content.title.value : content.company.value}
+          {content.title ? content.title : content.company}
         </Card.Title>
         {content.role && (
-          <Card.Subtitle>
-            {`${content.role.value} (${content.period.value})`}
-          </Card.Subtitle>
+          <Card.Subtitle>{`${content.role} (${content.period})`}</Card.Subtitle>
         )}
         <Card.Text>
-          {content.subtitle ? content.subtitle.value : content.brief.value}
+          {content.subtitle ? content.subtitle : content.brief}
         </Card.Text>
         {content.link && (
-          <Card.Link href={content.link.value} target="_blank">
+          <Card.Link href={content.link} target="_blank">
             Link
           </Card.Link>
         )}

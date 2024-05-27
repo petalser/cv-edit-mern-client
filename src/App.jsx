@@ -130,7 +130,7 @@ function App() {
               onClick={() => handleShowCard("stackList", "dynamic")}
             >
               {/* Stack section filler */}
-              {data.stackList.values.map((item, key) => {
+              {data.stackList.map((item, key) => {
                 return (
                   <p key={key} className="mb-0">
                     <strong>{item[0]}</strong>
@@ -151,7 +151,7 @@ function App() {
               onClick={() => handleShowCard("langList", "dynamic")}
             >
               {/* Languages section filler */}
-              {data.langList.values.map((item, key) => {
+              {data.langList.map((item, key) => {
                 return (
                   <p key={key} className="mb-0">
                     <strong>{item[0]}</strong>
@@ -171,7 +171,7 @@ function App() {
               <InputableElement field="projectsSectionTitle" as="h3" />
 
               {/* Projects section summary (if provided) */}
-              {data.projectsSectionSummary.value && (
+              {data.projectsSectionSummary && (
                 <InputableElement field="projectsSectionSummary" as="span" />
               )}
             </div>
@@ -204,7 +204,7 @@ function App() {
             />
 
             {/* Summary for experience section (if provided) */}
-            {data.experienceSubtitle.value && (
+            {data.experienceSubtitle && (
               <InputableElement
                 field="experienceSubtitle"
                 as="p"

@@ -20,7 +20,7 @@ const SaveButton = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const nameValue = data.name.value;
+    const nameValue = data.name;
     const nameArray = nameValue.split(" ");
     const lastName = nameArray[nameArray.length - 1];
     try {
@@ -51,7 +51,7 @@ const SaveButton = () => {
       const response = await privateAxios.put("/entries/", payload);
       if (response.status) {
         const updated = response.data.updatedEntry;
-        const filtered = userDataSignal.filter((item) => item._id !== _id);
+        const filtered = userData.filter((item) => item._id !== _id);
         dispatch(setUserData([updated, ...filtered]));
         dispatch(setEntryID(updated._id.toString()));
       }

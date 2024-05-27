@@ -3,16 +3,16 @@ import { Trash } from "react-bootstrap-icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { patchGlobalData } from "../../features/globalDataSlice";
+import placeholders from "../../data/placeholders.json";
 
 const ModalDynamic = ({ show, onHide, id }) => {
   const dispatch = useDispatch();
   const glob = useSelector((state) => state.globalData[id]);
 
   //chunk of global data object
-  const dataChunk = glob.values;
-  const [firstPlaceholder, secondPlaceholder] = glob.placeholders;
+  const [firstPlaceholder, secondPlaceholder] = placeholders[id];
 
-  const [data, setData] = useState([...dataChunk]);
+  const [data, setData] = useState(glob);
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
