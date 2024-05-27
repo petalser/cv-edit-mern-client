@@ -1,0 +1,43 @@
+{
+    "name": "Your name",,
+    "role":  "Role you're looking for",,
+    "education": "Education (university, college, courses)",
+    "contactLink_1": "Contact link #1 (email?)",
+    "contactLink_2": "Contact link #2",
+    "contactLink_3": "Contact link #3",
+    "summaryTitle": "Title for \"summary\" section",
+    "summaryText": "Actual \"summary\"",
+    "stackTitle": "Title for \"my stack\" section",
+    "stackList": [
+        "Title (programming language, field of knowledge",
+        "Details (frameworks, libraries, etc"
+      ],
+    "langTitle":  "Title for \"my languages\" section",
+    "langList":  ["Language", "Level, certificate"],
+    "projectsSectionTitle":  "Title for \"my projects\" section",
+    "projectsSectionSummary": "Summary for \"my projects\" section",
+    "project_1": {
+      "title":  "Project name",
+      "subtitle": "Few words about that project",
+      "link":  "Link (with \"http\")",
+    },
+    "project_2": {
+      "title":  "Project name",
+      "subtitle": "Few words about that project",
+      "link":  "Link (with \"http\")",
+    },
+    "project_3": {
+      "title":  "Project name",
+      "subtitle":  "Few words about that project",
+      "link":  "Link (with \"http\")",
+    },
+    "experienceTitle":  "Title for \"Experience\" section (\"Experience\" recommended)",
+    "experienceSubtitle": "Description for \"Experience\" section",
+    "experience": {
+      "role":  "Position", 
+      "company": "Company",
+      "period": "Period (e.g '1953-2002')", 
+      "brief": "Brief description", 
+    },
+  }
+  

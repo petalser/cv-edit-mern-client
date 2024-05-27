@@ -1,0 +1,48 @@
+{
+  "name": "",
+  "role": "",
+  "education": "",
+  "contactLink_1": "",
+  "contactLink_2": "",
+  "contactLink_3": "",
+  "summaryTitle": "",
+  "summaryText": "",
+  "stackTitle": "",
+  "stackList": [
+    ["", ""],
+    ["", ""]
+  ],
+  "langTitle": "",
+  "langList": [["", ""]],
+  "projectsSectionTitle": "",
+  "projectsSectionSummary": "",
+  "project_1": {
+    "title": "",
+    "subtitle": "",
+    "link": ""
+  },
+  "project_2": {
+    "title": "",
+    "subtitle": "",
+    "link": ""
+  },
+  "project_3": {
+    "title": "",
+    "subtitle": "",
+    "link": ""
+  },
+  "experienceTitle": "",
+  "experienceSubtitle": "",
+  "experiencePeriodLatest": {
+    "role": "",
+    "company": "",
+    "period": "",
+    "brief": ""
+  },
+  "experiencePeriodPrevious": {
+    "role": "",
+    "company": "",
+    "period": "",
+    "brief": ""
+  }
+}
