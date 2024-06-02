@@ -21,8 +21,9 @@ function App() {
   const privateAxios = usePrivateAxios();
 
   const data = useSelector((state) => state.globalData);
-  const { isTooltipEnabled, isPanelEnabled, isPanelHovered, modalType } =
-    useSelector((state) => state.ui);
+  const { isTooltipEnabled, isPanelEnabled, modalType } = useSelector(
+    (state) => state.ui
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,24 +40,23 @@ function App() {
       }
     };
     fetchEntries();
-  }, []);
+  }, [dispatch, privateAxios]);
 
   // triggers Panel
   useEffect(() => {
-    if (modalType === "blank") {
-      const panelTrigger = (event) => {
-        if (event.clientX < 30 || isPanelHovered) {
-          dispatch(enablePanel());
-        } else {
-          dispatch(disablePanel());
-        }
-      };
-      window.addEventListener("mousemove", panelTrigger);
-      return () => {
-        window.removeEventListener("mousemove", panelTrigger);
-      };
-    }
-  }, [dispatch, isPanelEnabled, isPanelHovered, modalType]);
+    const panelTrigger = (event) => {
+      if (modalType === "blank" && (event.clientX < 30 || isPanelEnabled)) {
+        dispatch(enablePanel());
+      } else {
+        dispatch(disablePanel());
+      }
+    };
+    window.addEventListener("mousemove", panelTrigger);
+
+    return () => {
+      window.removeEventListener("mousemove", panelTrigger);
+    };
+  }, [dispatch, isPanelEnabled, modalType]);
 
   const handleShowCard = (id, type) => {
     setTargetID(id);

@@ -11,7 +11,6 @@ const allowedModalTypes = [
 
 const initialState = {
   isPanelEnabled: false,
-  isPanelHovered: false,
   isTooltipEnabled: true,
   isExported: false,
   modalType: "blank",
@@ -24,10 +23,6 @@ const uiSlice = createSlice({
   reducers: {
     disableTooltip: (state) => {
       state.isTooltipEnabled = false;
-      return state;
-    },
-    toggleButtonGroupHover: (state) => {
-      state.isPanelHovered = state.isPanelHovered ? false : true;
       return state;
     },
     enablePanel: (state) => {
