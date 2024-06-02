@@ -32,8 +32,8 @@ const Panel = () => {
     <ButtonGroup
       style={{ zIndex: 1100, width: "10rem" }}
       className="list-group position-fixed bg-black bg-opacity-25"
-      onMouseEnter={() => handleHoverStatusChange()}
-      onMouseLeave={() => handleHoverStatusChange()}
+      onMouseEnter={handleHoverStatusChange}
+      onMouseLeave={handleHoverStatusChange}
       vertical
     >
       <Save2PDFButton />
@@ -47,12 +47,13 @@ const Panel = () => {
       </Button>
       {networkBool && (
         <>
-          <SaveButton />
-
           <div className="border border-secondary w-100 my-1"></div>
 
           {token ? (
-            <Logout />
+            <>
+              <SaveButton />
+              <Logout />
+            </>
           ) : (
             <>
               <Button
