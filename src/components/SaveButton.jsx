@@ -7,12 +7,12 @@ import { setUserData } from "../features/userDataSlice";
 import { CaretDown, CaretUp, CaretRight } from "react-bootstrap-icons";
 
 const SaveButton = () => {
+  const dispatch = useDispatch();
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState("");
   const data = useSelector((state) => state.globalData);
   const userData = useSelector((state) => state.userData);
   const privateAxios = usePrivateAxios();
-  const dispatch = useDispatch();
 
   const showForm = () => {
     setToggleForm((prev) => !prev);
@@ -38,6 +38,7 @@ const SaveButton = () => {
       );
     } finally {
       setToggleForm(false);
+      dispatch(disablePanel());
     }
   };
 

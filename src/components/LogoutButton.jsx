@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import axios from "../api/axios";
 import { useDispatch } from "react-redux";
 import { clearToken } from "../features/authSlice";
+import { disablePanel } from "../features/uiSlice";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Logout = () => {
       console.log("Logging out error:", err);
     } finally {
       dispatch(clearToken());
+      dispatch(disablePanel());
     }
   };
 

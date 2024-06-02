@@ -1,8 +1,10 @@
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { disablePanel } from "../features/uiSlice";
 import html2pdf from "html2pdf.js";
 
 const Save2PDFButton = () => {
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.globalData);
   const user = data.name;
   const name = user.split(" ").join("_");
@@ -22,6 +24,7 @@ const Save2PDFButton = () => {
       );
     }
     html2pdf().from(content).set(options).save();
+    dispatch(disablePanel());
   };
 
   return (
