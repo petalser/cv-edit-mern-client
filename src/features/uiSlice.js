@@ -24,22 +24,28 @@ const uiSlice = createSlice({
   reducers: {
     disableTooltip: (state) => {
       state.isTooltipEnabled = false;
+      return state;
     },
     toggleButtonGroupHover: (state) => {
       state.isPanelHovered = state.isPanelHovered ? false : true;
+      return state;
     },
     enablePanel: (state) => {
       state.isPanelEnabled = true;
+      return state;
     },
     disablePanel: (state) => {
       state.isPanelEnabled = false;
+      return state;
     },
     setModalType: (state, action) => {
       // if (allowedModalTypes.includes{action.payload}) {}
       state.modalType = action.payload || "blank";
+      return state;
     },
     setEntryID: (state, action) => {
       state.currentEntryID = action.payload;
+      return state;
     },
     //isExported
   },

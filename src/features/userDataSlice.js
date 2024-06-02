@@ -8,9 +8,11 @@ const userDataSlice = createSlice({
   reducers: {
     clearUserData: (state) => {
       state = initialState;
+      return state;
     },
     setUserData: (state, action) => {
       state = action.payload;
+      return state;
     },
   },
 });

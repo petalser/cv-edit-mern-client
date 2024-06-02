@@ -18,10 +18,12 @@ const globalDataSlice = createSlice({
     },
     setGlobalData: (state, action) => {
       state = action.payload;
+      return state;
     },
     patchGlobalData: (state, action) => {
       const { id, data } = action.payload;
       state[id] = data;
+      return state;
     },
   },
 });

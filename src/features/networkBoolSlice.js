@@ -8,11 +8,11 @@ const networkBoolSlice = createSlice({
   reducers: {
     connected: (state) => {
       state.connected = true;
-      console.log(state.connected);
+      return state;
     },
     disconnected: (state) => {
       state.connected = false;
-      console.log(state.connected);
+      return state;
     },
   },
 });
