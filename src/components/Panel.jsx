@@ -4,6 +4,7 @@ import Save2PDFButton from "./Save2PDFButton";
 import SaveButton from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
+import Bubble from "./Bubble";
 import { setModalType, enablePanel, disablePanel } from "../features/uiSlice";
 
 const Panel = () => {
@@ -67,7 +68,7 @@ const Panel = () => {
             </>
           )}
 
-          {userData.length ? <Entries /> : null}
+          {userData.length ? <Entries /> : <Bubble />}
         </>
       )}
     </ButtonGroup>

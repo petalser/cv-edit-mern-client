@@ -45,6 +45,7 @@ function App() {
   // triggers Panel
   useEffect(() => {
     const panelTrigger = (event) => {
+      if (isPanelEnabled) return;
       if (modalType === "blank" && (event.clientX < 30 || isPanelEnabled)) {
         dispatch(enablePanel());
       } else {
