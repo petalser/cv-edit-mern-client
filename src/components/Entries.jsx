@@ -11,6 +11,7 @@ const Entries = () => {
   const dispatch = useDispatch();
   const { currentEntry } = useSelector((state) => state.ui);
   const userData = useSelector((state) => state.userData);
+  const token = useSelector((state) => state.auth);
   const privateAxios = usePrivateAxios();
 
   const handleClick = (id) => {
@@ -64,9 +65,14 @@ const Entries = () => {
               >
                 {item.name}
               </Button>
-              <Button variant="dark" onClick={(e) => handleDelete(e, item._id)}>
-                <TrashFill />
-              </Button>
+              {token && (
+                <Button
+                  variant="dark"
+                  onClick={(e) => handleDelete(e, item._id)}
+                >
+                  <TrashFill />
+                </Button>
+              )}
             </li>
           ))}
       </ButtonGroup>
