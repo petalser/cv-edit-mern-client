@@ -1,11 +1,11 @@
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import html2pdf from "html2pdf.js";
 
 const Save2PDFButton = () => {
   const data = useSelector((state) => state.globalData);
   const user = data.name;
   const name = user.split(" ").join("_");
+
   const handleSave = () => {
     const content = document.getElementById("pageContent");
     const options = {
@@ -21,7 +21,9 @@ const Save2PDFButton = () => {
         `Latin filenames are recommended. Your filename will contain ${user}`
       );
     }
-    html2pdf().from(content).set(options).save();
+    import("html2pdf.js").then((res) =>
+      res.default().from(content).set(options).save()
+    );
   };
 
   return (
