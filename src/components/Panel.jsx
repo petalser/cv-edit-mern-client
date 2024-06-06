@@ -59,10 +59,10 @@ const Panel = () => {
             </>
           )}
 
-          {userData.length && <Entries />}
-          <Bubble />
+          {userData.length > 0 && <Entries />}
         </>
       )}
+      <Bubble />
     </ButtonGroup>
   );
 };

@@ -49,7 +49,7 @@ const Entries = () => {
         vertical
       >
         <h2>Entries</h2>
-        {userData.length &&
+        {userData.length > 0 &&
           userData.map((item, index) => (
             <li
               key={index}
