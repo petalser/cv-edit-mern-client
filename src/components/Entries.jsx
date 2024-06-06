@@ -5,7 +5,6 @@ import { setEntryID } from "../features/uiSlice";
 import { usePrivateAxios } from "../hooks/usePrivateAxios";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { TrashFill } from "react-bootstrap-icons";
-import Bubble from "./Bubble";
 
 const Entries = () => {
   const dispatch = useDispatch();
@@ -76,7 +75,6 @@ const Entries = () => {
             </li>
           ))}
       </ButtonGroup>
-      <Bubble />
     </>
   );
 };

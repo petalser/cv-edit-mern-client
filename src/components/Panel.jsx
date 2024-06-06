@@ -5,6 +5,8 @@ import SaveButton from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
 import Bubble from "./Bubble";
+import EditJsonButton from "./EditJsonButton";
+import ClipboardJsonButton from "./ClipboardJsonButton";
 import { setModalType, enablePanel, disablePanel } from "../features/uiSlice";
 
 const Panel = () => {
@@ -14,18 +16,10 @@ const Panel = () => {
   const token = useSelector((state) => state.auth);
   const networkBool = useSelector((state) => state.networkBool.connected);
 
-  const handleClipboardClick = (e) => {
-    navigator.clipboard.writeText(JSON.stringify(data));
-    e.target.textContent = "Success!";
-    e.target.classList.remove("btn-secondary");
-    e.target.classList.add("btn-success");
-  };
-
   const handleModalTypeChange = (str = "json") => {
     dispatch(setModalType(str));
     dispatch(disablePanel());
   };
-
   return (
     <ButtonGroup
       style={{ zIndex: 1100, width: "10rem" }}
@@ -36,13 +30,10 @@ const Panel = () => {
     >
       <Save2PDFButton />
 
-      <Button variant="secondary" onClick={() => handleModalTypeChange()}>
-        Edit JSON
-      </Button>
+      <EditJsonButton />
 
-      <Button variant="secondary" onClick={handleClipboardClick}>
-        Clipboard JSON
-      </Button>
+      <ClipboardJsonButton data={data} />
+
       {networkBool && (
         <>
           {token && <SaveButton />}
@@ -68,7 +59,8 @@ const Panel = () => {
             </>
           )}
 
-          {userData.length ? <Entries /> : <Bubble />}
+          {userData.length && <Entries />}
+          <Bubble />
         </>
       )}
     </ButtonGroup>
