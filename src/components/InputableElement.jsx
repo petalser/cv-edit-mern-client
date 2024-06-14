@@ -18,6 +18,10 @@ const InputableElement = ({ as, field, classes = "" }) => {
     data[field]
   );
 
+  useEffect(() => {
+    setInputValue(data[field]);
+  }, [data, field]);
+
   const handleChange = (e) => setInputValue(e.target.value);
 
   const handleKey = (e) => e.key === "Enter" && inputRef.current.blur();
