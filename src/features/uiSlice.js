@@ -39,7 +39,7 @@ const uiSlice = createSlice({
       return state;
     },
     setEntryID: (state, action) => {
-      state.currentEntryID = action.payload;
+      state.currentEntry = action.payload;
       return state;
     },
     //isExported
