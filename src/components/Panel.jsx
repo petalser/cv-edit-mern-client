@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import Save2PDFButton from "./Save2PDFButton";
 import SaveButton from "./SaveButton";
 import Logout from "./LogoutButton";
@@ -14,7 +14,7 @@ const Panel = () => {
   const data = useSelector((state) => state.globalData);
   const userData = useSelector((state) => state.userData);
   const token = useSelector((state) => state.auth);
-  const networkBool = useSelector((state) => state.networkBool.connected);
+  const network = useSelector((state) => state.network);
 
   const handleModalTypeChange = (str = "json") => {
     dispatch(setModalType(str));
@@ -33,8 +33,12 @@ const Panel = () => {
       <EditJsonButton />
 
       <ClipboardJsonButton data={data} />
-
-      {networkBool && (
+      {network.pending ? (
+        <span className="w-100 d-flex justify-content-between">
+          Pending
+          <Spinner size="sm" />
+        </span>
+      ) : network.connected ? (
         <>
           {token && <SaveButton />}
           <div className="border border-secondary w-100 my-1"></div>
@@ -61,7 +65,10 @@ const Panel = () => {
 
           {userData.length > 0 && <Entries />}
         </>
+      ) : (
+        <span>No response</span>
       )}
+
       <Bubble />
     </ButtonGroup>
   );
