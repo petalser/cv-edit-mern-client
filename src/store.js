@@ -1,18 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { listener } from "./features/uiSlice";
-import networkBoolReducer from "./features/networkBoolSlice";
-import globalDataReducer from "./features/globalDataSlice";
-import uiReducer from "./features/uiSlice";
-import authReducer from "./features/authSlice";
-import userDataReducer from "./features/userDataSlice";
+import network from "./features/networkSlice";
+import globalData from "./features/globalDataSlice";
+import ui from "./features/uiSlice";
+import auth from "./features/authSlice";
+import userData from "./features/userDataSlice";
 
 export const store = configureStore({
   reducer: {
-    networkBool: networkBoolReducer,
-    globalData: globalDataReducer,
-    ui: uiReducer,
-    auth: authReducer,
-    userData: userDataReducer,
+    network,
+    globalData,
+    ui,
+    auth,
+    userData,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listener.middleware),

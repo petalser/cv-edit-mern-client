@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setGlobalData } from "./features/globalDataSlice";
-import { connected, disconnected } from "./features/networkBoolSlice";
+import { connected, disconnected } from "./features/networkSlice";
 import { enablePanel, disablePanel, setModalType } from "./features/uiSlice";
 import { setUserData } from "./features/userDataSlice";
 import Tooltip from "./components/Tooltip";
