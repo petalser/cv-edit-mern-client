@@ -27,3 +27,4 @@ CV-bootstrap
 src/apps/
 datakeys.txt
 .env
+changelog.txt
