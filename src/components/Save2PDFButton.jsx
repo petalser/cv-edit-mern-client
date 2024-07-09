@@ -10,10 +10,10 @@ const Save2PDFButton = () => {
     const content = document.getElementById("pageContent");
     const options = {
       margin: [0, 0.5],
-      pagebreak: { mode: "avoid-all" },
+      pagebreak: { mode: "css" },
       filename: `${name}_CV.pdf`,
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
+      html2canvas: { scale: 4 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     };
     if (!name.match(/^[A-Za-z_]+$/)) {
