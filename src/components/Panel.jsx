@@ -22,8 +22,8 @@ const Panel = () => {
   };
   return (
     <ButtonGroup
-      style={{ zIndex: 1100, width: "10rem" }}
-      className="list-group position-fixed bg-black bg-opacity-25"
+      style={{ zIndex: 1100, width: "10rem", maxHeight: "100vh" }}
+      className="list-group position-fixed bg-black bg-opacity-25 d-flex flex-column"
       onMouseEnter={() => dispatch(enablePanel())}
       onMouseLeave={() => dispatch(disablePanel())}
       vertical
@@ -68,8 +68,6 @@ const Panel = () => {
       ) : (
         <span>No response</span>
       )}
-
-      <Bubble />
     </ButtonGroup>
   );
 };

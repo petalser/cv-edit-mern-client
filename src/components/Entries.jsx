@@ -43,12 +43,12 @@ const Entries = () => {
 
   return (
     <>
+      <h2>Entries</h2>
       <ButtonGroup
         style={{ width: "10rem" }}
-        className="list-group w-100"
+        className="list-group w-100 overflow-auto pt-1"
         vertical
       >
-        <h2>Entries</h2>
         {userData.length > 0 &&
           userData.map((item, index) => (
             <li
