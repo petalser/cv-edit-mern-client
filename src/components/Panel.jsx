@@ -4,7 +4,6 @@ import Save2PDFButton from "./Save2PDFButton";
 import SaveButton from "./SaveButton";
 import Logout from "./LogoutButton";
 import Entries from "./Entries";
-import Bubble from "./Bubble";
 import EditJsonButton from "./EditJsonButton";
 import ClipboardJsonButton from "./ClipboardJsonButton";
 import { setModalType, enablePanel, disablePanel } from "../features/uiSlice";
@@ -21,18 +20,19 @@ const Panel = () => {
     dispatch(disablePanel());
   };
   return (
-    <ButtonGroup
+    <aside
       style={{ zIndex: 1100, width: "10rem", maxHeight: "100vh" }}
-      className="list-group position-fixed bg-black bg-opacity-25 d-flex flex-column"
+      className="position-fixed bg-black bg-opacity-25 vh-100 d-flex flex-column"
       onMouseEnter={() => dispatch(enablePanel())}
       onMouseLeave={() => dispatch(disablePanel())}
-      vertical
     >
-      <Save2PDFButton />
+      <ButtonGroup className="list-group " vertical>
+        <Save2PDFButton />
 
-      <EditJsonButton />
+        <EditJsonButton />
 
-      <ClipboardJsonButton data={data} />
+        <ClipboardJsonButton data={data} />
+      </ButtonGroup>
       {network.pending ? (
         <span className="w-100 d-flex justify-content-between">
           Pending
@@ -68,7 +68,7 @@ const Panel = () => {
       ) : (
         <span>No response</span>
       )}
-    </ButtonGroup>
+    </aside>
   );
 };
 
