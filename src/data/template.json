@@ -1,0 +1,57 @@
+{
+  "name": "Oleksandr Petrychuk",
+  "role": "Front-End dev",
+  "education": "Princeton University",
+  "contactLink_1": "petrichuck.a@gmail.com",
+  "contactLink_2": "github.com/petalser",
+  "contactLink_3": "linkedin.com/in/oleksandr-petrychuk",
+  "summaryTitle": "Summary",
+  "summaryText": "Experiences full stack developer with over 3 years of experience in designing and implementing scalable web applications. Proficient in both front-end and back-end development, with a strong focus on React and Express. Known for delivering robust solutions that enhance user experience and streamline business operations.",
+  "stackTitle": "Techs I use",
+  "stackList": [
+    ["HTML5/CSS3", "Bootstrap, Tailwind, SASS, LESS, CSS modules"],
+    [
+      "Javascript/Typescript",
+      "ES6+, Next.js, React.js, React Styled comp-s, React-redux (+toolkit), Node.js (Express.js, MongoDB)"
+    ],
+    ["Python", "Django, tkinter, pyQT"]
+  ],
+  "langTitle": "Languages I speak",
+  "langList": [
+    ["English", "C1"],
+    ["Ukrainian", "C2"],
+    ["Russian", "C2"],
+    ["Polish", "B1"]
+  ],
+  "projectsSectionTitle": "Projects I've Developed",
+  "projectsSectionSummary": "Over the past few years, I have participated in several projects and built some on my own (including this CV). Here are a few:",
+  "project_1": {
+    "title": "DataStash",
+    "subtitle": "Developed with React.js (TypeScript) and Google Cloud Platform (Google Auth & Firestore). Users input data along with a 'secret key,' which is then encoded and stored in the database.",
+    "link": "https://datastash.netlify.app/"
+  },
+  "project_2": {
+    "title": "Rapid News",
+    "subtitle": "Developed with React.js and Sass in a black-and-white color scheme. Users can search, select a language, hover over elements for descriptions, and click to read articles.",
+    "link": "https://rapid-news-react.netlify.app/"
+  },
+  "project_3": {
+    "title": "Quiz",
+    "subtitle": "A quiz app built with React.js and Bootstrap (default styles). Users can press 'Start' to answer 10 randomly generated questions.",
+    "link": "https://tangerine-twilight-004269.netlify.app/"
+  },
+  "experienceTitle": "Experience",
+  "experienceSubtitle": "I have previously held (for 10+ years) various roles both as an employee (in teams of different sizes) and as a self-employed person in various industries, most of which were not directly related to software development.",
+  "experiencePeriodLatest": {
+    "role": "Web Developer",
+    "company": "ilovemyteam",
+    "period": "2024-present",
+    "brief": "Developing high-performance online stores and personal websites tailored to client needs. Leveraging modern tech stacks, primarily Next.js with Sanity.io or Supabase, to create seamless, scalable, and visually compelling digital experiences. "
+  },
+  "experiencePeriodPrevious": {
+    "role": "Web Developer",
+    "company": "Freelance",
+    "period": "2022-2024",
+    "brief": "Developing landing pages, web portfolios, and web applications of any complexity. Experienced in 'Pixel Perfect' methodology, with a strong focus on flexibility and accessibility by default."
+  }
+}
