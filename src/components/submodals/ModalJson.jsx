@@ -2,9 +2,11 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { setGlobalData } from "../../features/globalDataSlice";
 import { useRef } from "react";
+import { useJsonValidation } from "../../hooks/useJsonValidation";
 
 const ModalJson = ({ show, onHide }) => {
   const dispatch = useDispatch();
+  const validate = useJsonValidation()
 
   //global data object
   const json = useSelector((state) => state.globalData);
@@ -12,7 +14,7 @@ const ModalJson = ({ show, onHide }) => {
   const area = useRef(null);
 
   const handleSave = () => {
-    const content = JSON.parse(area.current.value);
+    const content = validate(JSON.parse(area.current.value));
     dispatch(setGlobalData(content));
     onHide();
   };
